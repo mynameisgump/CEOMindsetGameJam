@@ -12,15 +12,15 @@ const GrinderSep = () => {
             //   manifold.solverContactPoint(0)
             // );
     
-            if (other.rigidBodyObject) {
-              console.log(
-                // this rigid body's Object3D
-                target,
-                " collided with ",
-                // the other rigid body's Object3D
-                other
-              );
-            }
+            // if (other.rigidBodyObject) {
+            //   console.log(
+            //     // this rigid body's Object3D
+            //     target,
+            //     " collided with ",
+            //     // the other rigid body's Object3D
+            //     other
+            //   );
+            // }
           }}
           >
             <mesh

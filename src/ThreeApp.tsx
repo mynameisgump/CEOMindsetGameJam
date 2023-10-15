@@ -1,11 +1,12 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react'
+import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { Stats, Environment} from '@react-three/drei'
-import { Physics, RigidBody, InstancedRigidBodies, InstancedRigidBodiesProps} from '@react-three/rapier'
+import { Physics, RigidBody, InstancedRigidBodies, InstancedRigidBodyProps, InstancedRigidBodiesProps, RapierRigidBody, CollisionEnterPayload} from '@react-three/rapier'
 import { Box } from '@react-three/drei'
 import GrinderSep from './GrinderSep'
 import { BoxGeometry, Color, Mesh, MeshBasicMaterial, MeshLambertMaterial } from 'three'
+import { useThree } from '@react-three/fiber'
 
 
 
@@ -40,32 +41,72 @@ const Meat = () => {
   )
 }
 
+const COUNT = 2;
+
 const createBody = (): InstancedRigidBodyProps => ({
   key: Math.random(),
+  instanceId: Math.random().toString(),
   position: [Math.random() * 20, Math.random() * 20, Math.random() * 20],
   rotation: [
     Math.random() * Math.PI * 2,
     Math.random() * Math.PI * 2,
     Math.random() * Math.PI * 2
   ],
-  scale: [0.5 + Math.random(), 0.5 + Math.random(), 0.5 + Math.random()]
 });
 
-const COUNT = 100;
-const ThreeApp = () => {
-  const instances = useMemo(() => {
-    const instances: InstancedRigidBodyProps[] = [];
 
-    for (let i = 0; i < COUNT; i++) {
-      instances.push({
-        key: "instance_" + Math.random(),
-        position: [Math.random() * 10, Math.random() * 10, Math.random() * 10],
-        rotation: [Math.random(), Math.random(), Math.random()]
-      });
+const InstancedScene = () => {
+  const { scene } = useThree();
+
+  const [bodies, setBodies] = useState<InstancedRigidBodyProps[]>(() =>
+    Array.from({
+      length: COUNT
+    }).map(() => createBody())
+  );
+
+
+  const api = useRef<RapierRigidBody[]>([]);
+
+
+  useEffect(() => {
+    if (api) {
+      console.log("api", api)
     }
+  },[api])
 
-    return instances;
-  }, []);
+
+  const removeInstance = (e: CollisionEnterPayload) => {
+    const instanceId = e.target.rigidBodyObject.instanceId;
+    const instanceIndex = bodies.findIndex((body) => body.instanceId === instanceId);
+    const clonedBodies = [...bodies]
+    clonedBodies.pop(instanceIndex);
+    setBodies(clonedBodies)
+    
+  };
+
+  return (
+    <InstancedRigidBodies
+      instances={bodies}
+      colliders="ball"
+      onCollisionEnter={(e) => {
+        //Gump Cry
+        console.log("Collision Key?", e.target)
+        removeInstance(e)
+      }}
+      ref={api}
+    >
+        <instancedMesh args={[undefined, undefined, COUNT]} count={bodies.length} >
+          <sphereGeometry args={[1, 32, 32]} />
+          <meshStandardMaterial color="hotpink" />
+        </instancedMesh>
+    </InstancedRigidBodies>
+  )
+}
+
+
+
+
+const ThreeApp = () => {
 
  return (
     <div style={{width: "100vw", height: "100vh"}}>
@@ -82,19 +123,7 @@ const ThreeApp = () => {
               {/* <Meat></Meat> */}
               <Floor></Floor>
               <GrinderSep></GrinderSep>
-              <InstancedRigidBodies
-                instances={instances}
-                colliders="ball"
-                // colliderNodes={[
-                //   <BoxCollider args={[0.5, 0.5, 0.5]} />,
-                //   <SphereCollider args={[0.5]} />
-                // ]}
-              >
-                  <instancedMesh args={[undefined, undefined, COUNT]} count={COUNT} >
-                    <sphereGeometry args={[1, 32, 32]} />
-                    <meshStandardMaterial color="hotpink" />
-                  </instancedMesh>
-              </InstancedRigidBodies>
+              <InstancedScene></InstancedScene>
             </Physics>
             
         </Canvas>
