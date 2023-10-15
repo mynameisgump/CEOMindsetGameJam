@@ -1,10 +1,11 @@
-import React, { useRef, useState, useMemo } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Gltf } from '@react-three/drei'
-import { Instances, Stats, Environment} from '@react-three/drei'
-import { Physics, RigidBody } from '@react-three/rapier'
+import React, { useRef, useState, useEffect } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+import { Stats, Environment} from '@react-three/drei'
+import { Physics, RigidBody, InstancedRigidBodies } from '@react-three/rapier'
 import { Box } from '@react-three/drei'
 import GrinderSep from './GrinderSep'
+import { SphereGeometry } from 'three'
 
 
 
@@ -30,7 +31,7 @@ const Floor = () => {
 const Meat = () => {
   
   return (
-    <RigidBody name="Meat">
+    <RigidBody colliders="hull" name="Meat">
       <mesh position={[0,5,0]} castShadow={true}>
         <sphereGeometry args={[1, 32, 32]} />
         <meshStandardMaterial color="hotpink" />
@@ -39,18 +40,41 @@ const Meat = () => {
   )
 }
 
-const Grinder = () => {
-  return (
-    <RigidBody colliders={"hull"} type={"fixed"}>
-      <Gltf src="/public/Grinder_Sep.glb" castShadow >
-      </Gltf>
-    </RigidBody>
+const createBody = (): InstancedRigidBodyProps => ({
+  key: Math.random(),
+  position: [Math.random() * 20, Math.random() * 20, Math.random() * 20],
+  rotation: [
+    Math.random() * Math.PI * 2,
+    Math.random() * Math.PI * 2,
+    Math.random() * Math.PI * 2
+  ],
+  scale: [0.5 + Math.random(), 0.5 + Math.random(), 0.5 + Math.random()]
+});
 
-  )
-}
-
+const MAX_COUNT = 2;
 
 const ThreeApp = () => {
+  const sphereGeo = new SphereGeometry(1, 32, 32);
+  const api = useRef([]);
+
+  const [bodies, setBodies] = useState<any[]>(() =>
+    Array.from({
+      length: 100
+    }).map(() => createBody())
+  );
+
+  const ref = useRef<any>(null);
+  
+
+  useEffect(() => {
+    if (ref.current) {
+      for (let i = 0; i < MAX_COUNT; i++) {
+        ref.current!.setColorAt(i, new Color(Math.random() * 0xffffff));
+      }
+      ref.current!.instanceColor!.needsUpdate = true;
+    }
+  }, []);
+
  return (
     <div style={{width: "100vw", height: "100vh"}}>
         <Canvas shadows dpr={1}>
@@ -76,7 +100,26 @@ const ThreeApp = () => {
               <Meat></Meat>
               <Floor></Floor>
               <GrinderSep></GrinderSep>
-              {/* <Grinder></Grinder> */}
+              <InstancedRigidBodies instances={bodies} ref={api} colliders="hull">
+                <instancedMesh
+                  ref={ref}
+                  castShadow
+                  args={[sphereGeo, undefined, MAX_COUNT]}
+                  count={bodies.length}
+                  onClick={(evt) => {
+                    api.current![evt.instanceId!].applyTorqueImpulse(
+                      {
+                        x: 0,
+                        y: 50,
+                        z: 0
+                      },
+                      true
+                    );
+                  }}
+                >
+                  <meshPhysicalMaterial />
+                </instancedMesh>
+              </InstancedRigidBodies>
             </Physics>
             
         </Canvas>
