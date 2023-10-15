@@ -4,6 +4,10 @@ import { OrbitControls, Gltf } from '@react-three/drei'
 import { Instances, Stats, Environment} from '@react-three/drei'
 import { Physics, RigidBody } from '@react-three/rapier'
 import { Box } from '@react-three/drei'
+import GrinderSep from './GrinderSep'
+
+
+
 
 
 const Floor = () => {
@@ -23,27 +27,10 @@ const Floor = () => {
 };
 
 
-// const Manson = (props: GroupProps) => {
-//   const { nodes } = useGLTF(
-//     new URL("../../models/objects.glb", import.meta.url).toString()
-//   ) as unknown as {
-//     nodes: {
-//       pear: Mesh;
-//     };
-//   };
-
-//   return (
-//     <group {...props} scale={1}>
-//       <RigidBody position={[0, 2, 0]} colliders="hull">
-//         <Clone object={nodes.pear} castShadow receiveShadow />
-//       </RigidBody>
-//     </group>
-//   );
-// };
-
 const Meat = () => {
+  
   return (
-    <RigidBody>
+    <RigidBody name="Meat">
       <mesh position={[0,5,0]} castShadow={true}>
         <sphereGeometry args={[1, 32, 32]} />
         <meshStandardMaterial color="hotpink" />
@@ -88,7 +75,8 @@ const ThreeApp = () => {
             <Physics debug gravity={[0, -1, 0]} >
               <Meat></Meat>
               <Floor></Floor>
-              <Grinder></Grinder>
+              <GrinderSep></GrinderSep>
+              {/* <Grinder></Grinder> */}
             </Physics>
             
         </Canvas>
