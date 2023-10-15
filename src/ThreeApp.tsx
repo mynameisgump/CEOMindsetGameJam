@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { Stats, Environment} from '@react-three/drei'
-import { Physics, RigidBody, InstancedRigidBodies } from '@react-three/rapier'
+import { Physics, RigidBody, InstancedRigidBodies, InstancedRigidBodiesProps} from '@react-three/rapier'
 import { Box } from '@react-three/drei'
 import GrinderSep from './GrinderSep'
-import { SphereGeometry } from 'three'
+import { BoxGeometry, Color, Mesh, MeshBasicMaterial, MeshLambertMaterial } from 'three'
 
 
 
@@ -51,28 +51,20 @@ const createBody = (): InstancedRigidBodyProps => ({
   scale: [0.5 + Math.random(), 0.5 + Math.random(), 0.5 + Math.random()]
 });
 
-const MAX_COUNT = 2;
-
+const COUNT = 100;
 const ThreeApp = () => {
-  const sphereGeo = new SphereGeometry(1, 32, 32);
-  const api = useRef([]);
+  const instances = useMemo(() => {
+    const instances: InstancedRigidBodyProps[] = [];
 
-  const [bodies, setBodies] = useState<any[]>(() =>
-    Array.from({
-      length: 100
-    }).map(() => createBody())
-  );
-
-  const ref = useRef<any>(null);
-  
-
-  useEffect(() => {
-    if (ref.current) {
-      for (let i = 0; i < MAX_COUNT; i++) {
-        ref.current!.setColorAt(i, new Color(Math.random() * 0xffffff));
-      }
-      ref.current!.instanceColor!.needsUpdate = true;
+    for (let i = 0; i < COUNT; i++) {
+      instances.push({
+        key: "instance_" + Math.random(),
+        position: [Math.random() * 10, Math.random() * 10, Math.random() * 10],
+        rotation: [Math.random(), Math.random(), Math.random()]
+      });
     }
+
+    return instances;
   }, []);
 
  return (
@@ -84,41 +76,24 @@ const ThreeApp = () => {
 
             <OrbitControls />
 
-            <directionalLight
-                castShadow
-                position={[10, 10, 10]}
-                shadow-camera-bottom={-40}
-                shadow-camera-top={40}
-                shadow-camera-left={-40}
-                shadow-camera-right={40}
-                shadow-mapSize-width={1024}
-                shadow-bias={-0.0001}
-              />
             <Environment preset="apartment" />
 
             <Physics debug gravity={[0, -1, 0]} >
-              <Meat></Meat>
+              {/* <Meat></Meat> */}
               <Floor></Floor>
               <GrinderSep></GrinderSep>
-              <InstancedRigidBodies instances={bodies} ref={api} colliders="hull">
-                <instancedMesh
-                  ref={ref}
-                  castShadow
-                  args={[sphereGeo, undefined, MAX_COUNT]}
-                  count={bodies.length}
-                  onClick={(evt) => {
-                    api.current![evt.instanceId!].applyTorqueImpulse(
-                      {
-                        x: 0,
-                        y: 50,
-                        z: 0
-                      },
-                      true
-                    );
-                  }}
-                >
-                  <meshPhysicalMaterial />
-                </instancedMesh>
+              <InstancedRigidBodies
+                instances={instances}
+                colliders="ball"
+                // colliderNodes={[
+                //   <BoxCollider args={[0.5, 0.5, 0.5]} />,
+                //   <SphereCollider args={[0.5]} />
+                // ]}
+              >
+                  <instancedMesh args={[undefined, undefined, COUNT]} count={COUNT} >
+                    <sphereGeometry args={[1, 32, 32]} />
+                    <meshStandardMaterial color="hotpink" />
+                  </instancedMesh>
               </InstancedRigidBodies>
             </Physics>
             
