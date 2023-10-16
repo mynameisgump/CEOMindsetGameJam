@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://v651kioisk8x"]
+[gd_scene load_steps=14 format=3 uid="uid://v651kioisk8x"]
 
 [ext_resource type="PackedScene" uid="uid://eg8tymiisqoq" path="res://scenes/meat_sphere.tscn" id="1_6vw3u"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_dac0w"]
@@ -7,10 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bc2hl083ssegg" path="res://scenes/Grinder.tscn" id="5_aht0p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d7eaw"]
-size = Vector3(5, 1, 5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_if1ct"]
-size = Vector3(500, 1, 200)
+size = Vector3(3.10134, 1, 2.91047)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yaxsp"]
 
@@ -21,6 +18,48 @@ sky_material = SubResource("ProceduralSkyMaterial_yaxsp")
 background_mode = 2
 background_energy_multiplier = 3.0
 sky = SubResource("Sky_2r2hp")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_etx1p"]
+top_radius = 2.0
+bottom_radius = 2.0
+height = 9.006
+
+[sub_resource type="Animation" id="Animation_tmoyq"]
+resource_name = "MoveCameraMiddle"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrbitControls:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(2.08165e-12, -10, 2.08165e-12)]
+}
+
+[sub_resource type="Animation" id="Animation_y61ef"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OrbitControls:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v3e5k"]
+_data = {
+"MoveCameraMiddle": SubResource("Animation_tmoyq"),
+"RESET": SubResource("Animation_y61ef")
+}
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_dac0w")
@@ -37,20 +76,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.372, 0)
 script = ExtResource("3_62ykc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.534878, 0)
 shape = SubResource("BoxShape3D_d7eaw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Area3D"]
-visible = false
-mesh = SubResource("BoxMesh_if1ct")
-
 [node name="Grinder" parent="Map" instance=ExtResource("5_aht0p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.45971, 0)
+transform = Transform3D(0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0, -9.45971, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vipx0")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.2694, 18.292)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.14693, 12.222)
 
 [node name="OrbitControls" type="Control" parent="."]
 layout_mode = 3
@@ -60,5 +96,14 @@ offset_bottom = 40.0
 script = ExtResource("4_3pbvf")
 _camera = NodePath("../Camera3D")
 enable_pan = false
+
+[node name="Vat" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18.1191, 0)
+mesh = SubResource("CylinderMesh_etx1p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v3e5k")
+}
 
 [connection signal="body_entered" from="Map/Area3D" to="Map/Area3D" method="_on_body_entered"]

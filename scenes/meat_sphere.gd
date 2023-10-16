@@ -1,13 +1,17 @@
 extends RigidBody3D
+signal destroyed
+@onready var timer: Timer = $Timer;
 
 func destroy():
+	destroyed.emit()
 	queue_free()
-	pass
-# Called when the node enters the scene tree for the first time.
+
+func dissolve():
+	queue_free()
+	
 func _ready():
-	pass # Replace with function body.
+	timer.start()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if timer.is_stopped():
+		dissolve()
