@@ -1,47 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://f31m3yk4htnt"]
+[gd_scene load_steps=5 format=3 uid="uid://f31m3yk4htnt"]
 
-[ext_resource type="Shader" path="res://assets/shaders/liquidInBot.gdshader" id="1_cutye"]
+[ext_resource type="Shader" path="res://assets/shaders/LiquidTest.gdshader" id="1_n3jpp"]
 [ext_resource type="Texture2D" uid="uid://cj4v6koeckdlc" path="res://assets/textures/strangeMeat/albedo.png" id="2_l57tp"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5p2vf"]
-transparency = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aks1p"]
+render_priority = 0
+shader = ExtResource("1_n3jpp")
+shader_parameter/liquid_height = 1.06
+shader_parameter/liquid_surface_color = Color(1, 0.501961, 0, 1)
+shader_parameter/rim_emission_intensity = 0.0
+shader_parameter/rim_exponent = 1.0
+shader_parameter/emission_intensity = 0.0
+shader_parameter/liquid_surface_gradient_size = 0.0
+shader_parameter/wobble = Vector2(2.08165e-12, 2.08165e-12)
+shader_parameter/liquid_rim_gradient = ExtResource("2_l57tp")
+shader_parameter/albedo = ExtResource("2_l57tp")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_etx1p"]
-material = SubResource("StandardMaterial3D_5p2vf")
+material = SubResource("ShaderMaterial_aks1p")
 top_radius = 2.2
 bottom_radius = 2.2
 height = 9.1
-
-[sub_resource type="Gradient" id="Gradient_h51ri"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_d3c84"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jl7r1"]
-color_ramp = SubResource("Gradient_h51ri")
-noise = SubResource("FastNoiseLite_d3c84")
-
-[sub_resource type="Gradient" id="Gradient_pel82"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_kv2am"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ww5pk"]
-color_ramp = SubResource("Gradient_pel82")
-noise = SubResource("FastNoiseLite_kv2am")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_13cx0"]
-render_priority = 0
-shader = ExtResource("1_cutye")
-shader_parameter/coeff = Vector2(1.3, 1.3)
-shader_parameter/vel = 1.31
-shader_parameter/fill_amount = 5.53
-shader_parameter/size = Vector2(2.08165e-12, 1.24)
-shader_parameter/glass_thickness = 2.08165e-12
-shader_parameter/scale = 1.38
-shader_parameter/wave_intensity = 0.53
-shader_parameter/liquid_color = Vector4(2.08165e-12, 1, 1, 1)
-shader_parameter/albedo = ExtResource("2_l57tp")
-shader_parameter/waves_noise = SubResource("NoiseTexture2D_ww5pk")
-shader_parameter/bubbles_tex = SubResource("NoiseTexture2D_jl7r1")
 
 [node name="Vat" type="Node3D"]
 
@@ -49,7 +28,6 @@ shader_parameter/bubbles_tex = SubResource("NoiseTexture2D_jl7r1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 mesh = SubResource("CylinderMesh_etx1p")
 skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_13cx0")
 
 [node name="VatMesh2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)

@@ -13,5 +13,6 @@ func _ready():
 	timer.start()
 
 func _process(delta):
-	if timer.is_stopped():
-		dissolve()
+	#if timer.is_stopped():
+	#	dissolve()
+	pass

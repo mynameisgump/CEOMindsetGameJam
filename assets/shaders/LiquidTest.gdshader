@@ -18,6 +18,7 @@ uniform vec2 wobble = vec2(0.0, 0.0);
 varying float y_coordinate;
 // END: varying
 // ANCHOR: rotate
+uniform sampler2D albedo;
 mat4 rotate_x(in float angle) {
 	return mat4(
 			vec4(1.0,0.0,0.0,0.0),
@@ -63,7 +64,8 @@ void fragment() {
 	// END: discard
 	if (FRONT_FACING) {
 		// ANCHOR: liquid_color
-		vec4 liquid_color = texture(liquid_rim_gradient, vec2(pow_fresnel));
+		vec4 texture_albedo = texture(albedo, UV);
+		vec4 liquid_color = texture(albedo, vec2(pow_fresnel));
 		// END: liquid_color
 		// ANCHOR: surface_component
 		float surface_component = smoothstep(
@@ -72,16 +74,18 @@ void fragment() {
 				y_coordinate);
 		// END: surface_component
 		// ANCHOR: surface_mix
-		ALBEDO = mix(liquid_color.rgb, liquid_surface_color.rgb, surface_component);
+		// ALBEDO = mix(liquid_color.rgb, liquid_surface_color.rgb, surface_component);
+		ALBEDO = mix(texture_albedo.rgb, texture_albedo.rgb,surface_component);
 		// END: surface_mix
 	} else {
 		// This is an approximation of the normal.
 		// the normal of the backface will always point up
 		// ANCHOR: inv_camera
-		NORMAL = (VIEW_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz;
+		vec4 texture_albedo = texture(albedo, UV);
+		NORMAL = (INV_PROJECTION_MATRIX * vec4(0.0, 1.0, 0.0, 0.0)).xyz;
 		// END: inv_camera
 		// ANCHOR: albedo_ao
-		ALBEDO = liquid_surface_color.rgb;
+		ALBEDO = texture_albedo.rgb;
 		// this is needed because we want the backfaces to look solid
 		// if we let it be affected by AO, it will reveal the trick
 		AO_LIGHT_AFFECT = 0.0;
