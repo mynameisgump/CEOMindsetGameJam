@@ -1,10 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://v651kioisk8x"]
+[gd_scene load_steps=14 format=3 uid="uid://v651kioisk8x"]
 
 [ext_resource type="PackedScene" uid="uid://eg8tymiisqoq" path="res://scenes/meat_sphere.tscn" id="1_6vw3u"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_dac0w"]
 [ext_resource type="Texture2D" uid="uid://dlergl4ov6wrn" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_y1sr5"]
+[ext_resource type="Script" path="res://scenes/Area3D.gd" id="3_62ykc"]
+[ext_resource type="Script" path="res://addons/orbit-controls/orbit-controls.gd" id="4_3pbvf"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wiutj"]
-size = Vector3(500, 0.5, 500)
+[sub_resource type="BoxShape3D" id="BoxShape3D_d7eaw"]
+size = Vector3(500, 1, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_if1ct"]
+size = Vector3(500, 1, 200)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3u7c4"]
 albedo_texture = ExtResource("1_y1sr5")
@@ -12,6 +18,9 @@ uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_vw8k4"]
 material = SubResource("StandardMaterial3D_3u7c4")
+size = Vector3(500, 0.5, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wiutj"]
 size = Vector3(500, 0.5, 500)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yaxsp"]
@@ -24,26 +33,48 @@ background_mode = 2
 background_energy_multiplier = 3.0
 sky = SubResource("Sky_2r2hp")
 
-[node name="Node3D" type="Node3D"]
+[node name="Main" type="Node3D"]
+script = ExtResource("1_dac0w")
 
 [node name="Meat" type="Node3D" parent="."]
 
 [node name="MeatSphere" parent="Meat" instance=ExtResource("1_6vw3u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39877, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 10, 2.08165e-12)
 
 [node name="Map" type="Node3D" parent="."]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Map"]
+[node name="Area3D" type="Area3D" parent="Map"]
+script = ExtResource("3_62ykc")
 
-[node name="FloorCollision" type="CollisionShape3D" parent="Map/StaticBody3D"]
-shape = SubResource("BoxShape3D_wiutj")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Area3D"]
+shape = SubResource("BoxShape3D_d7eaw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Area3D"]
+visible = false
+mesh = SubResource("BoxMesh_if1ct")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Map"]
 
 [node name="FloorMesh" type="MeshInstance3D" parent="Map/StaticBody3D"]
 mesh = SubResource("BoxMesh_vw8k4")
 skeleton = NodePath("../..")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.603228, 1.43468)
+[node name="FloorCollision" type="CollisionShape3D" parent="Map/StaticBody3D"]
+shape = SubResource("BoxShape3D_wiutj")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vipx0")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3992, 4.43344)
+
+[node name="OrbitControls" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_3pbvf")
+_camera = NodePath("../Camera3D")
+
+[connection signal="body_entered" from="Map/Area3D" to="Map/Area3D" method="_on_body_entered"]
