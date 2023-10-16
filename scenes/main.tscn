@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://v651kioisk8x"]
+[gd_scene load_steps=15 format=3 uid="uid://v651kioisk8x"]
 
 [ext_resource type="PackedScene" uid="uid://eg8tymiisqoq" path="res://scenes/meat_sphere.tscn" id="1_6vw3u"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_dac0w"]
 [ext_resource type="Texture2D" uid="uid://dlergl4ov6wrn" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="1_y1sr5"]
 [ext_resource type="Script" path="res://scenes/Area3D.gd" id="3_62ykc"]
 [ext_resource type="Script" path="res://addons/orbit-controls/orbit-controls.gd" id="4_3pbvf"]
+[ext_resource type="PackedScene" uid="uid://bc2hl083ssegg" path="res://scenes/Grinder.tscn" id="5_aht0p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d7eaw"]
-size = Vector3(500, 1, 200)
+size = Vector3(5, 1, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_if1ct"]
 size = Vector3(500, 1, 200)
@@ -44,6 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 10, 2.08165e-12)
 [node name="Map" type="Node3D" parent="."]
 
 [node name="Area3D" type="Area3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41094, 0)
 script = ExtResource("3_62ykc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Area3D"]
@@ -62,14 +64,16 @@ skeleton = NodePath("../..")
 [node name="FloorCollision" type="CollisionShape3D" parent="Map/StaticBody3D"]
 shape = SubResource("BoxShape3D_wiutj")
 
+[node name="Grinder" parent="Map" instance=ExtResource("5_aht0p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.06725, 0)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vipx0")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3992, 4.43344)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.7049, 18.292)
 
 [node name="OrbitControls" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

@@ -2,7 +2,7 @@ extends RigidBody3D
 
 func destroy():
 	queue_free()
-
+	pass
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
