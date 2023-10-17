@@ -8,7 +8,7 @@ render_mode blend_mix,
 
 uniform bool affine_mapping = false;
 
-uniform sampler2D albedo : source_color, filter_nearest;
+uniform sampler2D albedo : source_color, filter_nearest, repeat_enable;
 uniform sampler2D normal;
 
 

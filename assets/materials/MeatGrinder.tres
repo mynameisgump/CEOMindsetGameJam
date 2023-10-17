@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://dhbprg7nx66wg"]
+
+[ext_resource type="Texture2D" uid="uid://bu3jmd7qxe1ka" path="res://assets/textures/ConcreteFloor/concrete_floor_worn_001_diff_2k.jpg" id="1_sl2cu"]
+[ext_resource type="Texture2D" uid="uid://ii2v20khqgp5" path="res://assets/textures/ConcreteFloor/concrete_floor_worn_001_nor_gl_2k.jpg" id="2_hx1ug"]
+[ext_resource type="Texture2D" uid="uid://b14a7g16k0b1w" path="res://assets/textures/ConcreteFloor/concrete_floor_worn_001_rough_2k.jpg" id="3_76fwl"]
+
+[resource]
+albedo_texture = ExtResource("1_sl2cu")
+roughness_texture = ExtResource("3_76fwl")
+roughness_texture_channel = 4
+normal_enabled = true
+normal_texture = ExtResource("2_hx1ug")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true

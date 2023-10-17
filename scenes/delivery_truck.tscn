@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://caewlpcef0cvt"]
+
+[ext_resource type="PackedScene" uid="uid://ci0b1p4poa24n" path="res://assets/LowPolyTruck/delivery_truck.glb" id="1_clvpm"]
+
+[node name="delivery_truck" instance=ExtResource("1_clvpm")]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)

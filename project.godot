@@ -52,6 +52,15 @@ move_down={
 ]
 }
 
+[layer_names]
+
+3d_render/layer_1="Map"
+3d_render/layer_2="Character"
+3d_render/layer_3="Meat"
+3d_physics/layer_1="Map"
+3d_physics/layer_2="Character"
+3d_physics/layer_3="Meat"
+
 [physics]
 
 3d/run_on_separate_thread=true
