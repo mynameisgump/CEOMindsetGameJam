@@ -1,8 +1,38 @@
-[gd_scene load_steps=2 format=3 uid="uid://cq0kp1425iykg"]
+[gd_scene load_steps=6 format=3 uid="uid://cq0kp1425iykg"]
 
 [ext_resource type="PackedScene" uid="uid://c7p2rmh6bhiba" path="res://assets/DeskAndComputer/desktop_computer.glb" id="1_pfgay"]
+[ext_resource type="Material" uid="uid://b0tmcm5yqmnyh" path="res://assets/materials/Computer_Playstation.tres" id="2_b61u4"]
+[ext_resource type="Shader" path="res://assets/shaders/playstation.gdshader" id="3_l8kdb"]
+[ext_resource type="Texture2D" uid="uid://bnwutom6lytfk" path="res://assets/DeskAndComputer/desktop_computer_0.png" id="4_l4gut"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nnmdb"]
+render_priority = 0
+shader = ExtResource("3_l8kdb")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("4_l4gut")
 
 [node name="desktop_computer" instance=ExtResource("1_pfgay")]
 
+[node name="defaultMaterial" parent="Sketchfab_model/Collada visual scene group/Mouse_Wheel_Low" index="0"]
+surface_material_override/0 = ExtResource("2_b61u4")
+
+[node name="defaultMaterial2" parent="Sketchfab_model/Collada visual scene group/Mouse_Low" index="0"]
+surface_material_override/0 = ExtResource("2_b61u4")
+
+[node name="defaultMaterial3" parent="Sketchfab_model/Collada visual scene group/Base_Low" index="0"]
+surface_material_override/0 = ExtResource("2_b61u4")
+
+[node name="defaultMaterial4" parent="Sketchfab_model/Collada visual scene group/Vert_Low" index="0"]
+surface_material_override/0 = ExtResource("2_b61u4")
+
 [node name="defaultMaterial5" parent="Sketchfab_model/Collada visual scene group/Computer_Low" index="0"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="defaultMaterial6" parent="Sketchfab_model/Collada visual scene group/Key_Board_Low" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_nnmdb")

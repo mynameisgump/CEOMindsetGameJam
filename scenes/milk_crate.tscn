@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0qayoewu0kjl"]
+
+[ext_resource type="PackedScene" uid="uid://wh4vfenpxrxq" path="res://assets/DeskAndComputer/milk_crate.glb" id="1_qbdfg"]
+[ext_resource type="Shader" path="res://assets/shaders/playstation.gdshader" id="2_b6k05"]
+[ext_resource type="Texture2D" uid="uid://cj4v6koeckdlc" path="res://assets/textures/strangeMeat/albedo.png" id="3_xqohf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uocbx"]
+render_priority = 0
+shader = ExtResource("2_b6k05")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("3_xqohf")
+
+[node name="milk_crate" instance=ExtResource("1_qbdfg")]
+transform = Transform3D(-0.05, 4.37114e-09, 0, -4.37114e-09, -0.05, 0, 0, 0, 0.05, 0, 0.54307, 0)
+
+[node name="Object_4" parent="Sketchfab_model/root/GLTF_SceneRootNode/node-0_0" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_uocbx")
