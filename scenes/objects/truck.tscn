@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://c60ectaknudt3"]
+
+[ext_resource type="PackedScene" uid="uid://cfbgeliigip8k" path="res://assets/objects/LowPolyTruck/truck_parts.glb" id="1_uuop3"]
+[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_gm0bc"]
+[ext_resource type="Texture2D" uid="uid://tld15ugyui7f" path="res://assets/objects/LowPolyTruck/delivery_truck_0.png" id="3_10nws"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bd83j"]
+render_priority = 0
+shader = ExtResource("2_gm0bc")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("3_10nws")
+
+[node name="truck_parts" instance=ExtResource("1_uuop3")]
+
+[node name="Truck" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_bd83j")
+
+[node name="TruckDoor" parent="." index="1"]
+visible = false
+
+[node name="SpawnPoint" type="Node3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95475, 5.2351)

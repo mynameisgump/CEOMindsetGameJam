@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj3kkpfntkiu2"]
+
+[ext_resource type="PackedScene" uid="uid://bw5hfxx7senkf" path="res://assets/tiles/concrete/concrete.glb" id="1_a67g8"]
+[ext_resource type="Material" uid="uid://c0yc8mqsxyqt4" path="res://materials/playstation_concrete.tres" id="2_h0rji"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_337m0"]
+data = PackedVector3Array(-24.0603, -0.2103, 24.0603, -24.0603, 6.4993, -24.0603, -24.0603, 6.4993, 24.0603, -24.0603, -0.2103, 24.0603, -24.0603, -0.2103, -24.0603, -24.0603, 6.4993, -24.0603, -24.0603, -0.2103, -24.0603, 24.0603, 6.4993, -24.0603, -24.0603, 6.4993, -24.0603, -24.0603, -0.2103, -24.0603, 24.0603, -0.2103, -24.0603, 24.0603, 6.4993, -24.0603, 24.0603, -0.2103, -24.0603, 24.0603, 6.4993, 24.0603, 24.0603, 6.4993, -24.0603, 24.0603, -0.2103, -24.0603, 24.0603, -0.2103, 24.0603, 24.0603, 6.4993, 24.0603, 24.0603, -0.2103, 24.0603, -24.0603, 6.4993, 24.0603, 24.0603, 6.4993, 24.0603, 24.0603, -0.2103, 24.0603, -24.0603, -0.2103, 24.0603, -24.0603, 6.4993, 24.0603, -24.0603, -0.2103, -24.0603, 24.0603, -0.2103, 24.0603, 24.0603, -0.2103, -24.0603, -24.0603, -0.2103, -24.0603, -24.0603, -0.2103, 24.0603, 24.0603, -0.2103, 24.0603, 24.0603, 6.4993, -24.0603, -24.0603, 6.4993, 24.0603, -24.0603, 6.4993, -24.0603, 24.0603, 6.4993, -24.0603, 24.0603, 6.4993, 24.0603, -24.0603, 6.4993, 24.0603)
+
+[node name="concrete" instance=ExtResource("1_a67g8")]
+
+[node name="Concrete" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_h0rji")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Concrete" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Concrete/StaticBody3D" index="0"]
+shape = SubResource("ConcavePolygonShape3D_337m0")

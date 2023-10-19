@@ -1,0 +1,160 @@
+[gd_scene load_steps=16 format=3 uid="uid://mmvk2vl2d0xj"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_aywe7"]
+[ext_resource type="PackedScene" uid="uid://bptoi82knvd3o" path="res://scenes/meat_grinder.tscn" id="1_upuhs"]
+[ext_resource type="PackedScene" uid="uid://ghdhujrj2tic" path="res://scenes/char_controller.tscn" id="2_j4d1n"]
+[ext_resource type="PackedScene" uid="uid://dj3kkpfntkiu2" path="res://scenes/concrete.tscn" id="2_qsbj8"]
+[ext_resource type="Script" path="res://scripts/GrindingArea.gd" id="3_6x6k2"]
+[ext_resource type="PackedScene" uid="uid://dxstwd0qw7bgn" path="res://scenes/Vat.tscn" id="3_205m7"]
+[ext_resource type="AudioStream" uid="uid://rlk1ohajgs06" path="res://audio/GumpGrind.wav" id="4_dvlke"]
+[ext_resource type="PackedScene" uid="uid://b3w5qjee5ncni" path="res://scenes/objects/sleeping_bag.tscn" id="6_in8ag"]
+[ext_resource type="PackedScene" uid="uid://qe45nx6xy7we" path="res://scenes/objects/shed.tscn" id="9_4i6h2"]
+[ext_resource type="PackedScene" uid="uid://c60ectaknudt3" path="res://scenes/objects/truck.tscn" id="10_htn8l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6nyb1"]
+size = Vector3(3, 1, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fxwa6"]
+size = Vector3(3.09705, 1, 3.01807)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yexun"]
+sky_energy_multiplier = 5.74
+
+[sub_resource type="Sky" id="Sky_r2oib"]
+sky_material = SubResource("ProceduralSkyMaterial_yexun")
+
+[sub_resource type="Environment" id="Environment_kueit"]
+sky = SubResource("Sky_r2oib")
+ambient_light_source = 3
+volumetric_fog_emission = Color(0.811765, 0.811765, 0.811765, 1)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_aywe7")
+
+[node name="Meat" type="Node3D" parent="."]
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="meat_grinder" parent="Map" instance=ExtResource("1_upuhs")]
+
+[node name="GrindingArea" type="Area3D" parent="Map/meat_grinder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.532229, 0)
+script = ExtResource("3_6x6k2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/meat_grinder/GrindingArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.115147, 0)
+shape = SubResource("BoxShape3D_6nyb1")
+
+[node name="GrindSound" type="AudioStreamPlayer3D" parent="Map/meat_grinder/GrindingArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.322427, 0)
+stream = ExtResource("4_dvlke")
+
+[node name="Vat" parent="Map/meat_grinder/GrindingArea" instance=ExtResource("3_205m7")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -11.965, 0)
+
+[node name="Plug" type="StaticBody3D" parent="Map/meat_grinder"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/meat_grinder/Plug"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.787513, 0)
+shape = SubResource("BoxShape3D_fxwa6")
+
+[node name="ConcreteNodes" type="Node3D" parent="Map"]
+
+[node name="concrete" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, 0)
+
+[node name="concrete2" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, -48)
+
+[node name="concrete3" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -48)
+
+[node name="concrete4" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 0, 0)
+
+[node name="concrete5" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 0, -48)
+
+[node name="concrete6" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, 48)
+
+[node name="concrete7" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 48)
+
+[node name="concrete8" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 0, 48)
+
+[node name="concrete9" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, 95)
+
+[node name="concrete12" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, 0)
+
+[node name="concrete13" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, -48)
+
+[node name="concrete16" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0, -96)
+
+[node name="concrete17" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -96)
+
+[node name="concrete18" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 0, -96)
+
+[node name="concrete19" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, -96)
+
+[node name="concrete14" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, 48)
+
+[node name="concrete15" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96, 0, 95)
+
+[node name="concrete10" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 95)
+
+[node name="concrete11" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 0, 95)
+
+[node name="concrete20" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 0, 0)
+
+[node name="concrete21" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 0, -48)
+
+[node name="concrete22" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 0, 48)
+
+[node name="concrete23" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 0, -96)
+
+[node name="concrete24" parent="Map/ConcreteNodes" instance=ExtResource("2_qsbj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96, 0, 95)
+
+[node name="Objects" type="Node3D" parent="Map"]
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_j4d1n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.62352, 16.1592)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kueit")
+
+[node name="Home" type="Node3D" parent="."]
+transform = Transform3D(0.99998, -2.77697e-10, -0.00635296, 2.77697e-10, 1, -8.83231e-13, 0.00635296, -8.83231e-13, 0.99998, 15.3915, 0, 62.9457)
+
+[node name="Shed" parent="Home" instance=ExtResource("9_4i6h2")]
+transform = Transform3D(-0.500001, 2.77697e-10, -4.44707e-08, 2.77697e-10, 0.5, -8.8322e-13, 4.44707e-08, -8.83244e-13, -0.500001, -13.4049, 6.57102, -25.0251)
+
+[node name="SleepingBag" parent="Home/Shed" instance=ExtResource("6_in8ag")]
+transform = Transform3D(3.99614, -1.8013e-17, 0.175663, -6.27075e-17, 4, -7.15573e-18, -0.175663, 4.33681e-19, 3.99614, -2.52033, 0.446207, -0.40276)
+
+[node name="truck" parent="." instance=ExtResource("10_htn8l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.40655, -18.9461)
+
+[node name="MeatSpawnTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="Map/meat_grinder/GrindingArea" to="Map/meat_grinder/GrindingArea" method="_on_body_entered"]
+[connection signal="full" from="Map/meat_grinder/GrindingArea/Vat" to="Map/meat_grinder/GrindingArea" method="_on_vat_full"]

@@ -1,0 +1,106 @@
+[gd_scene load_steps=11 format=3 uid="uid://dxstwd0qw7bgn"]
+
+[ext_resource type="Shader" path="res://shaders/liquid.gdshader" id="1_e8nem"]
+[ext_resource type="Script" path="res://scenes/Vat.gd" id="1_ndyrj"]
+[ext_resource type="Texture2D" uid="uid://cj4v6koeckdlc" path="res://textures/strangeMeat/albedo.png" id="2_xd3es"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c8go6"]
+render_priority = 0
+shader = ExtResource("1_e8nem")
+shader_parameter/liquid_height = 1.0
+shader_parameter/liquid_surface_color = Color(1, 0.0156863, 0, 1)
+shader_parameter/rim_emission_intensity = 0.2
+shader_parameter/rim_exponent = 3.0
+shader_parameter/emission_intensity = 0.1
+shader_parameter/liquid_surface_gradient_size = 3.0
+shader_parameter/wobble = Vector2(0, 0)
+shader_parameter/albedo = ExtResource("2_xd3es")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vn8sm"]
+material = SubResource("ShaderMaterial_c8go6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pbidb"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.980392, 1, 0.960784, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0jktx"]
+material = SubResource("StandardMaterial3D_pbidb")
+top_radius = 0.55
+bottom_radius = 0.55
+height = 2.1
+
+[sub_resource type="Animation" id="Animation_7lq1i"]
+resource_name = "Drain"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Liquid:mesh:material:shader_parameter/liquid_height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4.0, -4.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Liquid:mesh:material:shader_parameter/wobble")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0.5), Vector2(0, -0.5), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_w5o5l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Liquid:mesh:material:shader_parameter/liquid_height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Liquid:mesh:material:shader_parameter/wobble")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fhajs"]
+_data = {
+"Drain": SubResource("Animation_7lq1i"),
+"RESET": SubResource("Animation_w5o5l")
+}
+
+[node name="Vat" type="Node3D"]
+script = ExtResource("1_ndyrj")
+
+[node name="Liquid" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_vn8sm")
+
+[node name="Glass" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_0jktx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fhajs")
+}

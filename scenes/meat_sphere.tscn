@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://764k7tbwgbp1"]
+
+[ext_resource type="Script" path="res://scripts/meat_sphere.gd" id="1_6esoq"]
+[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_pg5tw"]
+[ext_resource type="Texture2D" uid="uid://cj4v6koeckdlc" path="res://textures/strangeMeat/albedo.png" id="3_8cwws"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1g86h"]
+render_priority = 0
+shader = ExtResource("2_pg5tw")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("3_8cwws")
+
+[sub_resource type="SphereMesh" id="SphereMesh_54fww"]
+material = SubResource("ShaderMaterial_1g86h")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h3o5c"]
+
+[node name="MeatSphere" type="RigidBody3D" groups=["Meat"]]
+script = ExtResource("1_6esoq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_54fww")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_h3o5c")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true

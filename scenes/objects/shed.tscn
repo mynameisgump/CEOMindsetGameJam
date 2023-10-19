@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://qe45nx6xy7we"]
+
+[ext_resource type="PackedScene" uid="uid://diaecj3ihktwk" path="res://assets/buildings/shed/Shed.glb" id="1_25xfo"]
+[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_hta1n"]
+[ext_resource type="Texture2D" uid="uid://clvbabcgo2r5j" path="res://assets/buildings/shed/Shed_Image_2.png" id="3_4pnxs"]
+[ext_resource type="Texture2D" uid="uid://cfon2mqqxuud7" path="res://assets/buildings/shed/Shed_Image_0.png" id="4_p0ewh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j7b3e"]
+render_priority = 0
+shader = ExtResource("2_hta1n")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("3_4pnxs")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nhop2"]
+render_priority = 0
+shader = ExtResource("2_hta1n")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("4_p0ewh")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vi6qm"]
+size = Vector3(1, 12.5156, 9.98842)
+
+[node name="Shed" instance=ExtResource("1_25xfo")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Wall_0" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_j7b3e")
+surface_material_override/1 = SubResource("ShaderMaterial_nhop2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54912, 6.18024, 0.055162)
+shape = SubResource("BoxShape3D_vi6qm")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.57976, 6.18024, 0.055162)
+shape = SubResource("BoxShape3D_vi6qm")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.12653, 6.18024, -4.91513)
+shape = SubResource("BoxShape3D_vi6qm")

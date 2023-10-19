@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c0yc8mqsxyqt4"]
+
+[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="1_ho3u2"]
+[ext_resource type="Texture2D" uid="uid://bu3jmd7qxe1ka" path="res://textures/ConcreteFloor/concrete_floor_worn_001_diff_2k.jpg" id="2_gssk3"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ho3u2")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("2_gssk3")

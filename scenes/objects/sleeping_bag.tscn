@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3w5qjee5ncni"]
+
+[ext_resource type="PackedScene" uid="uid://c2y0qpoeelyvf" path="res://assets/objects/SleepingBag/SleepingBag.glb" id="1_8phub"]
+[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_jwsk6"]
+[ext_resource type="Texture2D" uid="uid://dop1ag3v4l1yp" path="res://assets/objects/SleepingBag/SleepingBag_Image_0.png" id="3_0wucx"]
+[ext_resource type="Texture2D" uid="uid://cybamsgcrm6iv" path="res://assets/objects/SleepingBag/SleepingBag_Image_2.png" id="4_1um7e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ob5lp"]
+render_priority = 0
+shader = ExtResource("2_jwsk6")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("3_0wucx")
+shader_parameter/normal = ExtResource("4_1um7e")
+
+[node name="SleepingBag" instance=ExtResource("1_8phub")]
+
+[node name="SleepingBag2" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_ob5lp")
