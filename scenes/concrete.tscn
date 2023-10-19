@@ -11,7 +11,7 @@ data = PackedVector3Array(-24.0603, -0.2103, 24.0603, -24.0603, 6.4993, -24.0603
 [node name="Concrete" parent="." index="0"]
 surface_material_override/0 = ExtResource("2_h0rji")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Concrete" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Concrete" index="0" groups=["concrete"]]
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Concrete/StaticBody3D" index="0"]

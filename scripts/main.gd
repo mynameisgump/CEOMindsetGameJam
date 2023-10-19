@@ -37,19 +37,9 @@ func _process(delta):
 		money += 100
 	
 	var total_meat = meat.get_child_count();
-	print(total_meat)
-	#if meat_to_spawn > 0:
+
 	if meat_spawn_timer.is_stopped() && total_meat < max_meat:
 		add_meat_sphere();
+		var new_wait_time = randf_range(0.05,2);
+		meat_spawn_timer.wait_time = new_wait_time
 		meat_spawn_timer.start()
-#			var x = randf_range(-2,2);
-#			var meat_sphere = MeatSphere.instantiate();
-#			meat.add_child(meat_sphere);
-#			meat_sphere.set_position(meat_sphere_spawn.global_position);
-#			meat_sphere.apply_central_impulse(Vector3(x,0,10))
-#			meat_to_spawn -= 1
-#			meat_spawn_timer.start()
-
-	
-
-	

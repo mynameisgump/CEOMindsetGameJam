@@ -153,9 +153,10 @@ transform = Transform3D(3.99614, -1.8013e-17, 0.175663, -6.27075e-17, 4, -7.1557
 
 [node name="truck" parent="." instance=ExtResource("10_htn8l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.40655, -18.9461)
+visible = false
 
 [node name="MeatSpawnTimer" type="Timer" parent="."]
-wait_time = 0.01
+wait_time = 0.5
 one_shot = true
 
 [connection signal="body_entered" from="Map/meat_grinder/GrindingArea" to="Map/meat_grinder/GrindingArea" method="_on_body_entered"]

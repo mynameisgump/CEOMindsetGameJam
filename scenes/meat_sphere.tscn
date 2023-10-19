@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://764k7tbwgbp1"]
+[gd_scene load_steps=8 format=3 uid="uid://764k7tbwgbp1"]
 
 [ext_resource type="Script" path="res://scripts/meat_sphere.gd" id="1_6esoq"]
 [ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_pg5tw"]
 [ext_resource type="Texture2D" uid="uid://cj4v6koeckdlc" path="res://textures/strangeMeat/albedo.png" id="3_8cwws"]
+[ext_resource type="AudioStream" uid="uid://80dp3vtex6i1" path="res://audio/bruh.mp3" id="4_dq2vd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1g86h"]
 render_priority = 0
@@ -23,7 +24,9 @@ material = SubResource("ShaderMaterial_1g86h")
 
 [node name="MeatSphere" type="RigidBody3D" groups=["Meat"]]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 23
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_6esoq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -35,3 +38,9 @@ shape = SubResource("SphereShape3D_h3o5c")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_dq2vd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
