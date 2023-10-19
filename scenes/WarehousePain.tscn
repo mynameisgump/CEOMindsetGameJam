@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddqgieyx6myk"]
-
-[ext_resource type="PackedScene" uid="uid://cdt4g1n5u0thg" path="res://assets/Test_Big_Boi_Scene.glb" id="1_6s2fr"]
-
-[node name="Warehouse" instance=ExtResource("1_6s2fr")]
