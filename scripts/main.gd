@@ -10,7 +10,7 @@ var MeatSphere = preload("res://scenes/meat_sphere.tscn");
 
 const totalMeats = 1000;
 var money = 0;
-const max_meat = 1000;
+const max_meat = 4000;
 
 var meat_to_spawn = 0;
 		
