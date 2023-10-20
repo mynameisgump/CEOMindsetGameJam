@@ -7,6 +7,7 @@ var hvel : Vector3;
 
 @onready var head  : Node3D = $Body/Head;
 @onready var camera : Camera3D = $Body/Head/Camera3D;
+@onready var vacum_tip: Area3D = $Body/VacumTip 
 
 @export var GRAVITY = 9.8;
 @export var MAX_SPEED: float = 10.0;
@@ -36,6 +37,8 @@ var z_tilt = 0.0;
 var z_tilt_target = 0.0;
 var z_tilt_value = 0.01;
 var LEAN_SPEED = 5;
+var vacum_on = false;
+var total_meat_spheres = 0;
 
 func is_moving():
 	return Input.is_action_pressed("move_left") or \
@@ -55,7 +58,9 @@ func handle_input(delta : float) -> void:
 	if Input.is_action_pressed("move_right"):
 		lean_right = true
 		z_tilt_target = -z_tilt_value*5
-		
+	
+	if Input.is_action_just_pressed("suck"):
+		vacum_on = true;
 
 
 func handle_movement(delta : float) -> void:
@@ -91,4 +96,13 @@ func handle_movement(delta : float) -> void:
 
 func _physics_process(delta):
 	# Add the gravity.
+	print("Total Meat:", total_meat_spheres)
 	handle_movement(delta)
+	handle_input(delta)
+
+
+func _on_vacum_tip_body_entered(body):
+	if body.is_in_group("Meat"):
+		body.remove();
+		total_meat_spheres += 1;
+	pass # Replace with function body.

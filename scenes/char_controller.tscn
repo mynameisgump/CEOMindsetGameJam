@@ -1,7 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://ghdhujrj2tic"]
+[gd_scene load_steps=8 format=3 uid="uid://ghdhujrj2tic"]
 
 [ext_resource type="Script" path="res://scripts/CharacterBody3D.gd" id="1_dx8eo"]
 [ext_resource type="Script" path="res://scripts/PlayerBodyScript.gd" id="2_gq7dg"]
+[ext_resource type="Script" path="res://scripts/Vacum.gd" id="3_o23es"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fidl2"]
+top_radius = 0.25
+bottom_radius = 0.25
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6m17"]
+radius = 0.368804
+height = 4.09295
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c2ug3"]
+size = Vector3(0.471389, 0.492809, 0.354541)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7vtt4"]
 
@@ -17,6 +29,34 @@ script = ExtResource("2_gq7dg")
 
 [node name="Camera3D" type="Camera3D" parent="Body/Head"]
 
+[node name="Vacum" type="Area3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08165e-12, -1.5, -2.08165e-12)
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("3_o23es")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Vacum"]
+transform = Transform3D(1, 0, 0, 0, -0.0825821, -0.996584, 0, 0.996584, -0.0825821, 0.314, 1.033, 0.23)
+mesh = SubResource("CylinderMesh_fidl2")
+skeleton = NodePath("../../..")
+
+[node name="SuctionRadius" type="CollisionShape3D" parent="Body/Vacum"]
+transform = Transform3D(1, 0, 0, 0, 0.0124264, 0.999923, 0, -0.999923, 0.0124264, 0.315454, 1.11837, -2.31881)
+shape = SubResource("CapsuleShape3D_h6m17")
+
+[node name="SuctionPoint" type="Node3D" parent="Body/Vacum"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.332091, 1.08264, -0.790549)
+
+[node name="VacumTip" type="Area3D" parent="Body"]
+collision_layer = 16
+collision_mask = 4
+
+[node name="SuctionCollision" type="CollisionShape3D" parent="Body/VacumTip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.353335, -0.39674, -0.780669)
+shape = SubResource("BoxShape3D_c2ug3")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7vtt4")
+
+[connection signal="body_entered" from="Body/VacumTip" to="." method="_on_vacum_tip_body_entered"]

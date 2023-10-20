@@ -8,6 +8,9 @@ var off_ground;
 
 
 var delete = false;
+func remove():
+	# Play Shlurp?
+	queue_free();
 
 func destroy():
 	destroyed.emit()
@@ -34,6 +37,5 @@ func _on_body_entered(body):
 		#play_hit_sound();
 		hit_sound.play();
 	if (delete and not grind_sound.is_playing()):
-		
 		queue_free()
 
