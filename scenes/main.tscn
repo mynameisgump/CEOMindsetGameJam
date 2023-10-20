@@ -156,7 +156,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.40655, -18.9461)
 visible = false
 
 [node name="MeatSpawnTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.05
 one_shot = true
 
 [connection signal="body_entered" from="Map/meat_grinder/GrindingArea" to="Map/meat_grinder/GrindingArea" method="_on_body_entered"]
