@@ -19,6 +19,8 @@ var hvel : Vector3;
 @export var MAX_SLOPE_ANGLE = 40;
 @export var default_fov = 75;
 
+signal sucking(value);
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -37,7 +39,7 @@ var z_tilt = 0.0;
 var z_tilt_target = 0.0;
 var z_tilt_value = 0.01;
 var LEAN_SPEED = 5;
-var vacum_on = false;
+
 var total_meat_spheres = 0;
 
 func is_moving():
@@ -52,16 +54,18 @@ func handle_input(delta : float) -> void:
 	var cam_xform = camera.get_global_transform()
 	
 	if Input.is_action_pressed("move_left"):
-		lean_left = true
-		z_tilt_target = z_tilt_value*5
+		lean_left = true;
+		z_tilt_target = z_tilt_value*5;
 		
 	if Input.is_action_pressed("move_right"):
-		lean_right = true
-		z_tilt_target = -z_tilt_value*5
+		lean_right = true;
+		z_tilt_target = -z_tilt_value*5;
 	
 	if Input.is_action_just_pressed("suck"):
-		vacum_on = true;
+		sucking.emit(true);
 
+	if Input.is_action_just_released("suck"):
+		sucking.emit(false);
 
 func handle_movement(delta : float) -> void:
 			

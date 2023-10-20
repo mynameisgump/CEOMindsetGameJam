@@ -9,8 +9,8 @@ top_radius = 0.25
 bottom_radius = 0.25
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6m17"]
-radius = 0.368804
-height = 4.09295
+radius = 1.0967
+height = 5.6747
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c2ug3"]
 size = Vector3(0.471389, 0.492809, 0.354541)
@@ -41,7 +41,7 @@ mesh = SubResource("CylinderMesh_fidl2")
 skeleton = NodePath("../../..")
 
 [node name="SuctionRadius" type="CollisionShape3D" parent="Body/Vacum"]
-transform = Transform3D(1, 0, 0, 0, 0.0124264, 0.999923, 0, -0.999923, 0.0124264, 0.315454, 1.11837, -2.31881)
+transform = Transform3D(1, 0, 0, 0, 0.0124264, 0.999923, 0, -0.999923, 0.0124264, 0.315454, 1.11837, -2.88327)
 shape = SubResource("CapsuleShape3D_h6m17")
 
 [node name="SuctionPoint" type="Node3D" parent="Body/Vacum"]
@@ -59,4 +59,5 @@ shape = SubResource("BoxShape3D_c2ug3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7vtt4")
 
+[connection signal="sucking" from="." to="Body/Vacum" method="_on_character_body_3d_sucking"]
 [connection signal="body_entered" from="Body/VacumTip" to="." method="_on_vacum_tip_body_entered"]

@@ -44,7 +44,7 @@ func _process(delta):
 	if spawning:
 		if meat_spawn_timer.is_stopped() && total_meat < max_meat:
 			add_meat_sphere();
-			var new_time = randf_range(0.05,2);
+			var new_time = randf_range(0.05,0.06);
 			meat_spawn_timer.wait_time = new_time;
 			meat_spawn_timer.start();
 	hud.set_money(money);
