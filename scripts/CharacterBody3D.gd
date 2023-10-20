@@ -9,6 +9,10 @@ var hvel : Vector3;
 @onready var camera : Camera3D = $Body/Head/Camera3D;
 @onready var vacum_tip: Area3D = $Body/VacumTip 
 
+@onready var sound_vacum_succ: AudioStreamPlayer3D = $VacumSucc;
+
+@onready var succ_particles: GPUParticles3D = $Body/SuccParticles;
+
 @export var GRAVITY = 9.8;
 @export var MAX_SPEED: float = 10.0;
 # Original Default of 18
@@ -62,9 +66,13 @@ func handle_input(delta : float) -> void:
 		z_tilt_target = -z_tilt_value*5;
 	
 	if Input.is_action_just_pressed("suck"):
+		sound_vacum_succ.play()
+		succ_particles.emitting = true;
 		sucking.emit(true);
 
 	if Input.is_action_just_released("suck"):
+		sound_vacum_succ.stop()
+		succ_particles.emitting = false;
 		sucking.emit(false);
 
 func handle_movement(delta : float) -> void:
