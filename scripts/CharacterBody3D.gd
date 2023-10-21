@@ -137,8 +137,6 @@ func handle_movement(delta : float) -> void:
 	
 
 func _physics_process(delta):
-	# Add the gravity.
-	# print("Total Meat:", total_meat_spheres)
 	handle_movement(delta)
 	handle_input(delta)
 	
@@ -146,11 +144,6 @@ func _physics_process(delta):
 		total_meat_spheres -= 1;
 		var forward: Vector3 = -self.get_global_transform().basis.z;
 		shoot_meat_sphere.emit(suction_point.global_position,forward);
-#		var forward : Vector3 = player.get_global_transform().basis.z
-#		football.apply_impulse(forward * impulse_power)
-#		var meat_sphere = MeatSphere.instantiate();
-#		meat.add_child(meat_sphere);
-#		meat_sphere.set_position(Vector3(x,y,z));
 		
 	
 	if (absorbed_sounds.size() > 0):
@@ -166,5 +159,4 @@ func _on_vacum_tip_body_entered(body):
 		body.remove();
 		total_meat_spheres += 1;
 		spawn_sound_absorbed();
-		
-	pass # Replace with function body.
+

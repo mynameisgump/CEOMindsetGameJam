@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8dj8t4rmxv5r"]
+[gd_scene load_steps=4 format=3 uid="uid://c8dj8t4rmxv5r"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_6myg5"]
 [ext_resource type="Texture2D" uid="uid://brdya6tv40sbu" path="res://textures/HumanSkin/human-skin-freckled_albedo.png" id="1_u3eik"]
+
+[sub_resource type="Theme" id="Theme_q2b8o"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -20,90 +22,362 @@ offset_bottom = 98.0
 theme_override_font_sizes/font_size = 84
 text = "Money:"
 
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 774.0
+offset_top = 28.0
+offset_right = 1134.0
+offset_bottom = 101.0
+theme_override_font_sizes/font_size = 51
+text = "Vac Meat: 0/50
+"
+
 [node name="UI" type="TabContainer" parent="CanvasLayer"]
-visible = false
-offset_left = 465.0
-offset_top = 155.0
-offset_right = 691.0
-offset_bottom = 542.0
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -209.0
+offset_right = 250.0
+offset_bottom = 209.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_q2b8o")
 tab_alignment = 1
 
-[node name="Upgrades" type="GridContainer" parent="CanvasLayer/UI"]
+[node name="Upgrades" type="TabContainer" parent="CanvasLayer/UI"]
+layout_mode = 2
+tab_alignment = 1
+
+[node name="Vacum" type="CenterContainer" parent="CanvasLayer/UI/Upgrades"]
+layout_mode = 2
+
+[node name="VacumUpgrades" type="GridContainer" parent="CanvasLayer/UI/Upgrades/Vacum"]
 layout_mode = 2
 columns = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades"]
+[node name="MaxMeat" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat"]
 layout_mode = 2
-text = "Vacum
+text = "Max Meat
 "
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat"]
 layout_mode = 2
 texture = ExtResource("1_u3eik")
 expand_mode = 4
 
-[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/VBoxContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat"]
 layout_mode = 2
 text = "Upgrade: 100
 "
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades"]
+[node name="SuckPower" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/VBoxContainer2"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuckPower"]
 layout_mode = 2
-text = "Vacum
+text = "Suck Power
 "
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/VBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuckPower"]
 layout_mode = 2
 texture = ExtResource("1_u3eik")
 expand_mode = 4
 
-[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/VBoxContainer2"]
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuckPower"]
 layout_mode = 2
 text = "Upgrade: 100
 "
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades"]
+[node name="SuckSize" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/VBoxContainer3"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuckSize"]
 layout_mode = 2
-text = "Vacum
+text = "Suck Size
 "
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/VBoxContainer3"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuckSize"]
 layout_mode = 2
 texture = ExtResource("1_u3eik")
 expand_mode = 4
 
-[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/VBoxContainer3"]
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuckSize"]
 layout_mode = 2
 text = "Upgrade: 100
 "
 
-[node name="VBoxContainer4" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades"]
+[node name="SuperSuck" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/VBoxContainer4"]
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuperSuck"]
+layout_mode = 2
+text = "Super Suck"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuperSuck"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/SuperSuck"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="Vat" type="CenterContainer" parent="CanvasLayer/UI/Upgrades"]
+visible = false
+layout_mode = 2
+
+[node name="VatUpgrades" type="GridContainer" parent="CanvasLayer/UI/Upgrades/Vat"]
+layout_mode = 2
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer"]
+layout_mode = 2
+text = "Vat Size"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer2"]
+layout_mode = 2
+text = "Multi Vat
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer2"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer3"]
+layout_mode = 2
+text = "Vat Storage"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer3"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer4"]
+layout_mode = 2
+text = "Vat Stuff"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Vat/VatUpgrades/VBoxContainer4"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="Meat" type="CenterContainer" parent="CanvasLayer/UI/Upgrades"]
+visible = false
+layout_mode = 2
+
+[node name="MeatUpgrades" type="GridContainer" parent="CanvasLayer/UI/Upgrades/Meat"]
+layout_mode = 2
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer"]
 layout_mode = 2
 text = "Vacum
 "
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/VBoxContainer4"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_u3eik")
 expand_mode = 4
 
-[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/VBoxContainer4"]
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer2"]
+layout_mode = 2
+text = "Vacum
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer2"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer3"]
+layout_mode = 2
+text = "Vacum
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer3"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer4"]
+layout_mode = 2
+text = "Vacum
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/VBoxContainer4"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="Grinder" type="CenterContainer" parent="CanvasLayer/UI/Upgrades"]
+visible = false
+layout_mode = 2
+
+[node name="GrinderUpgrades" type="GridContainer" parent="CanvasLayer/UI/Upgrades/Grinder"]
+layout_mode = 2
+columns = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer"]
+layout_mode = 2
+text = "Vacum
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer2"]
+layout_mode = 2
+text = "Vacum
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer2"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer3"]
+layout_mode = 2
+text = "Vacum
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer3"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer3"]
+layout_mode = 2
+text = "Upgrade: 100
+"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer4"]
+layout_mode = 2
+text = "Vacum
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer4"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/UI/Upgrades/Grinder/GrinderUpgrades/VBoxContainer4"]
 layout_mode = 2
 text = "Upgrade: 100
 "
