@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://vc1dxy657ll0"]
+
+[ext_resource type="PackedScene" uid="uid://bd4od66b83t6k" path="res://assets/objects/Vac/Vac_uv.glb" id="1_5qquf"]
+[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_ke03i"]
+[ext_resource type="Texture2D" uid="uid://brdya6tv40sbu" path="res://textures/HumanSkin/human-skin-freckled_albedo.png" id="3_5k8er"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hrl4e"]
+render_priority = 0
+shader = ExtResource("2_ke03i")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("3_5k8er")
+
+[node name="Vac_uv" instance=ExtResource("1_5qquf")]
+
+[node name="Cylinder" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_hrl4e")

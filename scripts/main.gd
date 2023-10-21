@@ -9,12 +9,13 @@ extends Node3D
 
 var MeatSphere = preload("res://scenes/meat_sphere.tscn");
 
-const totalMeats = 1000;
+const totalMeats = 0;
 var money = 0;
-const max_meat = 4000;
+const max_meat = 1000;
 
-var meat_to_spawn = 0;
-var spawning = false;
+#var meat_to_spawn = 0;
+var spawning = true;
+var spawn_impulse_strength = 2;
 
 
 func add_meat_sphere():
@@ -23,18 +24,22 @@ func add_meat_sphere():
 #	var x = randf_range(-10,10);
 #	var z = randf_range(-10,10);
 	var y = randf_range(20,60);
+	var impulse_x = randf_range(-1,1)*spawn_impulse_strength;
+	var impulse_z = randf_range(-1,1)*spawn_impulse_strength;
+	
 	var meat_sphere = MeatSphere.instantiate();
 	meat.add_child(meat_sphere);
 	meat_sphere.set_position(Vector3(x,y,z));
+	meat_sphere.apply_impulse(Vector3(impulse_x,0,impulse_z))
 
 
 func _ready():
 	pass
 	
 func _process(delta):
-	if Input.is_action_just_pressed("add100"):
-		meat_to_spawn = 50;
-		spawning = true;
+#	if Input.is_action_just_pressed("add100"):
+#		meat_to_spawn = 50;
+#		spawning = true;
 
 	if Input.is_action_just_pressed("player_dump_vat"):
 		grinding_area.resume_grinding();
@@ -42,10 +47,13 @@ func _process(delta):
 		money += 100
 	
 	var total_meat = meat.get_child_count();
+	# Raining Meat Spheres
+	total_meat = meat.get_child_count();
 	if spawning:
 		if meat_spawn_timer.is_stopped() && total_meat < max_meat:
 			add_meat_sphere();
 			var new_time = randf_range(0.05,0.06);
+
 			meat_spawn_timer.wait_time = new_time;
 			meat_spawn_timer.start();
 	hud.set_money(money);

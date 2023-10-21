@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://ghdhujrj2tic"]
+[gd_scene load_steps=13 format=3 uid="uid://ghdhujrj2tic"]
 
 [ext_resource type="Script" path="res://scripts/CharacterBody3D.gd" id="1_dx8eo"]
 [ext_resource type="Script" path="res://scripts/PlayerBodyScript.gd" id="2_gq7dg"]
 [ext_resource type="Script" path="res://scripts/Vacum.gd" id="3_o23es"]
 [ext_resource type="AudioStream" uid="uid://d6rh0xkot6t6" path="res://audio/Succ_Vac.wav" id="4_81cpw"]
-[ext_resource type="PackedScene" uid="uid://cqixjk1rxpthk" path="res://scenes/absorbed_sound.tscn" id="5_aodl3"]
+[ext_resource type="PackedScene" uid="uid://vc1dxy657ll0" path="res://scenes/objects/VacMesh.tscn" id="4_wluoa"]
+[ext_resource type="PackedScene" path="res://scenes/absorbed_sound.tscn" id="5_aodl3"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_fidl2"]
 top_radius = 0.25
@@ -49,6 +50,7 @@ script = ExtResource("3_o23es")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Vacum"]
 transform = Transform3D(1, 0, 0, 0, -0.0825821, -0.996584, 0, 0.996584, -0.0825821, 0.314, 1.033, 0.23)
+visible = false
 mesh = SubResource("CylinderMesh_fidl2")
 skeleton = NodePath("../../..")
 
@@ -61,6 +63,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.332091, 1.08264, -0.790549)
 
 [node name="SpewPoint" type="Node3D" parent="Body/Vacum"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.337312, 1.16672, -1.60088)
+
+[node name="Vac_uv" parent="Body/Vacum" instance=ExtResource("4_wluoa")]
+transform = Transform3D(1, 0, 0, 0, 0.996494, -0.0836605, 0, 0.0836605, 0.996494, 0.331722, 1.02496, 0.214951)
 
 [node name="VacumTip" type="Area3D" parent="Body"]
 collision_layer = 16
