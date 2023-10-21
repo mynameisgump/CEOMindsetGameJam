@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ghdhujrj2tic"]
+[gd_scene load_steps=15 format=3 uid="uid://ghdhujrj2tic"]
 
 [ext_resource type="Script" path="res://scripts/CharacterBody3D.gd" id="1_dx8eo"]
 [ext_resource type="Script" path="res://scripts/PlayerBodyScript.gd" id="2_gq7dg"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://d6rh0xkot6t6" path="res://audio/Succ_Vac.wav" id="4_81cpw"]
 [ext_resource type="PackedScene" uid="uid://vc1dxy657ll0" path="res://scenes/objects/VacMesh.tscn" id="4_wluoa"]
 [ext_resource type="PackedScene" path="res://scenes/absorbed_sound.tscn" id="5_aodl3"]
+[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="5_gyf5b"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_fidl2"]
 top_radius = 0.25
@@ -24,7 +25,19 @@ emission_sphere_radius = 1.0
 gravity = Vector3(0, 0, 20)
 collision_mode = 2
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2v0fs"]
+render_priority = 0
+shader = ExtResource("5_gyf5b")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+
 [sub_resource type="SphereMesh" id="SphereMesh_a73p5"]
+material = SubResource("ShaderMaterial_2v0fs")
 radius = 0.125
 height = 0.25
 

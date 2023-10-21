@@ -60,6 +60,7 @@ var total_meat_spheres = 0;
 var absorbed_sounds = [];
 var spewing = false;
 var is_sucking = false;
+@export var vac_max: int = 5;
 
 func spawn_sound_absorbed():
 	var new_sound = absorbed_sound.instantiate();
@@ -161,7 +162,7 @@ func _physics_process(delta):
 
 func _on_vacum_tip_body_entered(body):
 	
-	if body.is_in_group("Meat") and is_sucking:
+	if body.is_in_group("Meat") and is_sucking and total_meat_spheres < vac_max:
 		body.remove();
 		total_meat_spheres += 1;
 		spawn_sound_absorbed();
