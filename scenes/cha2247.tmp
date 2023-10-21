@@ -59,9 +59,6 @@ shape = SubResource("CapsuleShape3D_h6m17")
 [node name="SuctionPoint" type="Node3D" parent="Body/Vacum"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.332091, 1.08264, -0.790549)
 
-[node name="SpewPoint" type="Node3D" parent="Body/Vacum"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.337312, 1.16672, -1.60088)
-
 [node name="VacumTip" type="Area3D" parent="Body"]
 collision_layer = 16
 collision_mask = 4

@@ -168,3 +168,4 @@ script = ExtResource("12_j7q73")
 
 [connection signal="body_entered" from="Map/meat_grinder/GrindingArea" to="Map/meat_grinder/GrindingArea" method="_on_body_entered"]
 [connection signal="full" from="Map/meat_grinder/GrindingArea/Vat" to="Map/meat_grinder/GrindingArea" method="_on_vat_full"]
+[connection signal="shoot_meat_sphere" from="CharacterBody3D" to="." method="_on_character_body_3d_shoot_meat_sphere"]

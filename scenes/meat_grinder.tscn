@@ -50,6 +50,45 @@ shader_parameter/metalic = null
 shader_parameter/resolution = Vector2i(320, 240)
 shader_parameter/albedo = ExtResource("6_m6umt")
 
+[sub_resource type="Animation" id="Animation_cvq2f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blade3:quaternion")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Quaternion(0, 0, 0.965926, -0.258819)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Blade2:quaternion")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Quaternion(0, 0, 0.965926, -0.258819)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Blade:quaternion")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Quaternion(0, 0, 0.965926, -0.258819)]
+}
+
 [sub_resource type="Animation" id="Animation_84jln"]
 resource_name = "Spinnin"
 length = 2.0
@@ -91,45 +130,6 @@ tracks/2/keys = {
 "values": [Quaternion(0, 0, 0.965926, -0.258819), Quaternion(0, 0, 0.866025, 0.5), Quaternion(0, 0, 0.258819, 0.965926), Quaternion(0, 0, -0.5, 0.866025)]
 }
 
-[sub_resource type="Animation" id="Animation_cvq2f"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Blade3:quaternion")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Quaternion(0, 0, 0.965926, -0.258819)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Blade2:quaternion")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Quaternion(0, 0, 0.965926, -0.258819)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Blade:quaternion")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Quaternion(0, 0, 0.965926, -0.258819)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g4eyf"]
 _data = {
 "RESET": SubResource("Animation_cvq2f"),
@@ -151,10 +151,11 @@ viewport_path = NodePath("Camera/SubViewport")
 script = ExtResource("2_i5xog")
 
 [node name="Blade" parent="." index="0"]
-transform = Transform3D(-0.0243713, 0.0140707, 0, -0.0140707, -0.0243713, 0, 0, 0, 0.177851, 0.00537896, -0.876882, -0.0125911)
+transform = Transform3D(-0.0243713, 0.0140708, 0, -0.0140708, -0.0243713, 0, 0, 0, 0.177851, 0.00537896, -0.876882, -0.0125911)
 rotation_edit_mode = 1
 
 [node name="Blade2" parent="." index="1"]
+transform = Transform3D(-0.0243712, 0.0140707, 0, -0.0140707, -0.0243712, 0, 0, 0, 0.177851, 0.947437, -0.855857, -0.0925237)
 rotation_edit_mode = 1
 
 [node name="Blade3" parent="." index="2"]
@@ -164,7 +165,7 @@ rotation_edit_mode = 1
 [node name="MeatFunnel" parent="." index="3"]
 surface_material_override/0 = SubResource("ShaderMaterial_6nhck")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeatFunnel" index="0"]
+[node name="StaticBody3D" type="StaticBody3D" parent="MeatFunnel" index="0" groups=["concrete"]]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="MeatFunnel/StaticBody3D" index="0"]
 shape = SubResource("ConcavePolygonShape3D_eevda")
@@ -175,7 +176,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_0xvuy")
 [node name="FunnelBase" parent="." index="5"]
 surface_material_override/0 = ExtResource("5_qg31w")
 
-[node name="Funnel" type="StaticBody3D" parent="FunnelBase" index="0"]
+[node name="Funnel" type="StaticBody3D" parent="FunnelBase" index="0" groups=["concrete"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.704549, -3.14452, -0.704549)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FunnelBase/Funnel" index="0"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqixjk1rxpthk"]
+
+[ext_resource type="AudioStream" uid="uid://c0tunt1l3bwxd" path="res://audio/Absorbed_Done.wav" id="1_g4hi1"]
+
+[node name="Absorbed" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_g4hi1")

@@ -18,7 +18,6 @@ func destroy():
 	delete = true;
 	self.visible = false;
 	collision.queue_free()
-	#queue_free()
 
 func dissolve():
 	queue_free()

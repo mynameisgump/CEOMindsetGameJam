@@ -15,7 +15,8 @@ const max_meat = 4000;
 
 var meat_to_spawn = 0;
 var spawning = false;
-		
+
+
 func add_meat_sphere():
 	var x = randf_range(-96,96);
 	var z = randf_range(-96,96);
@@ -48,3 +49,11 @@ func _process(delta):
 			meat_spawn_timer.wait_time = new_time;
 			meat_spawn_timer.start();
 	hud.set_money(money);
+
+
+func _on_character_body_3d_shoot_meat_sphere(new_position, impulse):
+	var meat_sphere = MeatSphere.instantiate();
+	meat.add_child(meat_sphere);
+	var impulse_strength = 10;
+	meat_sphere.set_position(new_position);
+	meat_sphere.apply_impulse(impulse*impulse_strength);
