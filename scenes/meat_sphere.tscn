@@ -165,7 +165,7 @@ mesh = SubResource("SphereMesh_gateq")
 shape = SubResource("SphereShape3D_h3o5c")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 5.0
 one_shot = true
 autostart = true
 
