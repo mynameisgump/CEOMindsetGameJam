@@ -1,19 +1,98 @@
 [gd_scene load_steps=14 format=3 uid="uid://764k7tbwgbp1"]
 
 [ext_resource type="Script" path="res://scripts/meat_sphere.gd" id="1_6esoq"]
-[ext_resource type="Shader" path="res://scenes/playstation_dissolve.gdshader" id="2_txh8v"]
-[ext_resource type="Texture2D" uid="uid://cj4v6koeckdlc" path="res://textures/strangeMeat/albedo.png" id="3_8cwws"]
 [ext_resource type="AudioStream" uid="uid://bcht6xyfux5ks" path="res://audio/Sqelch.mp3" id="4_r50s5"]
 [ext_resource type="AudioStream" uid="uid://rlk1ohajgs06" path="res://audio/GumpGrind.wav" id="5_g6jro"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_r6uso"]
+[sub_resource type="Shader" id="Shader_bicut"]
+code = "shader_type spatial;
+render_mode blend_mix,
+	cull_disabled,
+	depth_prepass_alpha,
+	shadows_disabled,
+	specular_disabled,
+	vertex_lighting;
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_03n8o"]
-noise = SubResource("FastNoiseLite_r6uso")
+uniform bool affine_mapping = false;
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7cr"]
+uniform sampler2D albedo : source_color, filter_nearest, repeat_enable;
+uniform sampler2D normal;
+
+uniform sampler2D tex_albedo;
+uniform sampler2D tex_normal;
+uniform sampler2D dissolve_texture;
+
+uniform float normal_depth: hint_range(0,10);
+uniform float alpha_scissor : hint_range(0, 1) = 0.5;
+uniform float jitter: hint_range(0, 1) = 0.25;
+uniform float roughness: hint_range(0,1) = 0.5;
+
+uniform float metalic;
+uniform ivec2 resolution = ivec2(320, 240);
+
+// Disolve Vars
+uniform float burn_size : hint_range(0,2);
+uniform float dissolve_amount : hint_range(0,1);
+varying vec2 tex_position;
+
+vec4 snap_to_position(vec4 base_position)
+{
+	vec4 snapped_position = base_position;
+	snapped_position.xyz = base_position.xyz / base_position.w;
+	
+	vec2 snap_resulotion = floor(vec2(resolution) * (1.0 - jitter));
+	snapped_position.x = floor(snap_resulotion.x * snapped_position.x) / snap_resulotion.x;
+	snapped_position.y = floor(snap_resulotion.y * snapped_position.y) / snap_resulotion.y;
+	
+	snapped_position.xyz *= base_position.w;
+	return snapped_position;
+}
+
+void vertex() {
+  tex_position = VERTEX.xz / 2.0 + 0.5;
+	vec4 snapped_position = snap_to_position(PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
+	if (affine_mapping)
+	{
+		POSITION = snapped_position;
+		POSITION /= abs(POSITION.w);
+	}
+	else
+	{
+		POSITION = snapped_position;
+	}
+}
+
+void fragment() {
+		vec4 color_base = COLOR;
+	vec4 texture_color = texture(albedo, UV);
+	vec4 texture_normal = texture(normal, UV);
+
+	ALBEDO = (color_base * texture_color).rgb;
+	ALPHA = texture_color.a * color_base.a;
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor;
+	NORMAL_MAP = texture_normal.rgb;
+	NORMAL_MAP_DEPTH = normal_depth;
+	ROUGHNESS = roughness;
+	
+	// vec4 albedo_tex = texture(texture_albedo,UV);
+	// ALBEDO = albedo_tex.rgb;
+	float sample = texture(dissolve_texture, UV).r;
+	ALPHA = smoothstep(dissolve_amount - burn_size, dissolve_amount, sample);
+	// NORMAL_MAP = texture(texture_normal, tex_position).xyz;
+
+}"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nio8p"]
+load_path = "res://.godot/imported/albedo.png-63f6748baeb1517289338a94f2db650a.s3tc.ctex"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fbydm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_om6x6"]
+noise = SubResource("FastNoiseLite_fbydm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_to003"]
 render_priority = 0
-shader = ExtResource("2_txh8v")
+shader = SubResource("Shader_bicut")
 shader_parameter/affine_mapping = false
 shader_parameter/normal_depth = null
 shader_parameter/alpha_scissor = 0.5
@@ -23,11 +102,11 @@ shader_parameter/metalic = null
 shader_parameter/resolution = Vector2i(320, 240)
 shader_parameter/burn_size = 0.0
 shader_parameter/dissolve_amount = 0.0
-shader_parameter/albedo = ExtResource("3_8cwws")
-shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_03n8o")
+shader_parameter/albedo = SubResource("CompressedTexture2D_nio8p")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_om6x6")
 
-[sub_resource type="SphereMesh" id="SphereMesh_54fww"]
-material = SubResource("ShaderMaterial_uw7cr")
+[sub_resource type="SphereMesh" id="SphereMesh_gateq"]
+material = SubResource("ShaderMaterial_to003")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_h3o5c"]
 
@@ -76,7 +155,7 @@ contact_monitor = true
 script = ExtResource("1_6esoq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_54fww")
+mesh = SubResource("SphereMesh_gateq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_h3o5c")

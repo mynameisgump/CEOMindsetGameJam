@@ -21,6 +21,7 @@ func destroy():
 	collision.queue_free()
 
 func dissolve():
+	print("Dissolving")
 	animation_player.play("Dissolve");
 	delete = true;
 	#queue_free()
