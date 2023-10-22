@@ -7,7 +7,7 @@ signal resume;
 var stopped = false;
 
 # var increase_amount = 0.4;
-var increase_amount = 4;
+var increase_amount = 0.8;
 
 func resume_grinding():
 	print("Resuming")

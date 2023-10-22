@@ -5,7 +5,10 @@ signal open_hud();
 
 @onready var canvas_layer = $CanvasLayer
 @onready var ui = $CanvasLayer/UI
+@onready var upgrade_ui = $CanvasLayer/UI/Upgrades
 @onready var animation_player = $SubViewport/AnimationPlayer
+@onready var meat_sphere = $SubViewport/MeatSphere
+@onready var vac = $SubViewport/Vacum
 
 var open = false;
 var total_money = 0;
@@ -32,6 +35,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if upgrade_ui.current_tab == 0:
+		if not vac.visible:
+			vac.visible = true
+			meat_sphere.visible = false
+			
+	if upgrade_ui.current_tab == 1:
+		if not meat_sphere.visible:
+			meat_sphere.visible = true;
+			vac.visible = false
+			
 	if Input.is_action_just_pressed("open_ui"):
 		if ui.visible:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);

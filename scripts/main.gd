@@ -29,7 +29,7 @@ func add_meat_sphere():
 	var y = randf_range(20,60);
 	var impulse_x = randf_range(-1,1)*spawn_impulse_strength;
 	var impulse_z = randf_range(-1,1)*spawn_impulse_strength;
-	
+
 	var meat_sphere = MeatSphere.instantiate();
 	meat_sphere.dissolve_time = current_dissolve_time;
 	meat.add_child(meat_sphere);

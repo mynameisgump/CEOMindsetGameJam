@@ -86,12 +86,12 @@ void fragment() {
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nio8p"]
 load_path = "res://.godot/imported/albedo.png-63f6748baeb1517289338a94f2db650a.s3tc.ctex"
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_fbydm"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pjc2b"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_om6x6"]
-noise = SubResource("FastNoiseLite_fbydm")
+noise = SubResource("FastNoiseLite_pjc2b")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_to003"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ymynv"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("Shader_bicut")
@@ -109,7 +109,7 @@ shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_om6x6")
 
 [sub_resource type="SphereMesh" id="SphereMesh_gateq"]
 resource_local_to_scene = true
-material = SubResource("ShaderMaterial_to003")
+material = SubResource("ShaderMaterial_ymynv")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_h3o5c"]
 
