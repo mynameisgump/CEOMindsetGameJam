@@ -1,37 +1,76 @@
 shader_type spatial;
-render_mode cull_disabled;
+render_mode blend_mix,
+	cull_disabled,
+	depth_prepass_alpha,
+	shadows_disabled,
+	specular_disabled,
+	vertex_lighting;
 
-uniform sampler2D T_BaseColor : source_color;
-uniform vec3 DissolveDirection = vec3(0.0, -1.0, 0.0);
-uniform float DissolveAmount = 0.25;
+uniform bool affine_mapping = false;
 
-const float in_min = -1.0;
-const float in_max = 1.0;
-const float out_min = 0.0;
-const float out_max = 1.0;
+uniform sampler2D albedo : source_color, filter_nearest, repeat_enable;
+uniform sampler2D normal;
 
-void fragment()
-{   
-    // Object Space
-    vec3 position = (inverse(MODEL_MATRIX) * INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
+uniform sampler2D tex_albedo;
+uniform sampler2D tex_normal;
+uniform sampler2D dissolve_texture;
 
-    // Calculate dissolve
-    float dot_result = dot(position, DissolveDirection);
+uniform float normal_depth: hint_range(0,10);
+uniform float alpha_scissor : hint_range(0, 1) = 0.5;
+uniform float jitter: hint_range(0, 1) = 0.25;
+uniform float roughness: hint_range(0,1) = 0.5;
 
-    // Remap
-    float _input_range = in_max - in_min;
-    float _output_range = out_max - out_min;
-    float remapped = out_min + _output_range * ((dot_result - in_min) / _input_range);
+uniform float metalic;
+uniform ivec2 resolution = ivec2(320, 240);
 
-    float alpha_cut = 0.0;
+// Disolve Vars
+uniform float burn_size : hint_range(0,2);
+uniform float dissolve_amount : hint_range(0,1);
+varying vec2 tex_position;
 
-    if(abs(remapped - DissolveAmount) < 0.00001 || (remapped < DissolveAmount)) {
-        alpha_cut = 1.0;
-    }
+vec4 snap_to_position(vec4 base_position)
+{
+	vec4 snapped_position = base_position;
+	snapped_position.xyz = base_position.xyz / base_position.w;
+	
+	vec2 snap_resulotion = floor(vec2(resolution) * (1.0 - jitter));
+	snapped_position.x = floor(snap_resulotion.x * snapped_position.x) / snap_resulotion.x;
+	snapped_position.y = floor(snap_resulotion.y * snapped_position.y) / snap_resulotion.y;
+	
+	snapped_position.xyz *= base_position.w;
+	return snapped_position;
+}
 
-    ALBEDO = texture(T_BaseColor, UV).xyz;
-    ALPHA = alpha_cut;
-    ALPHA_SCISSOR_THRESHOLD = 1.0;
+void vertex() {
+  tex_position = VERTEX.xz / 2.0 + 0.5;
+	vec4 snapped_position = snap_to_position(PROJECTION_MATRIX * MODELVIEW_MATRIX * vec4(VERTEX, 1.0));
+	if (affine_mapping)
+	{
+		POSITION = snapped_position;
+		POSITION /= abs(POSITION.w);
+	}
+	else
+	{
+		POSITION = snapped_position;
+	}
+}
 
+void fragment() {
+		vec4 color_base = COLOR;
+	vec4 texture_color = texture(albedo, UV);
+	vec4 texture_normal = texture(normal, UV);
+
+	ALBEDO = (color_base * texture_color).rgb;
+	ALPHA = texture_color.a * color_base.a;
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor;
+	NORMAL_MAP = texture_normal.rgb;
+	NORMAL_MAP_DEPTH = normal_depth;
+	ROUGHNESS = roughness;
+	
+	// vec4 albedo_tex = texture(texture_albedo,UV);
+	// ALBEDO = albedo_tex.rgb;
+	float sample = texture(dissolve_texture, UV).r;
+	ALPHA = smoothstep(dissolve_amount - burn_size, dissolve_amount, sample);
+	// NORMAL_MAP = texture(texture_normal, tex_position).xyz;
 
 }

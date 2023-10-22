@@ -1,16 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://rsaalpwsg1ex"]
+[gd_scene load_steps=6 format=3 uid="uid://rsaalpwsg1ex"]
 
-[ext_resource type="Shader" path="res://scenes/meat_sphere.gdshader" id="1_r0x1l"]
+[ext_resource type="Shader" path="res://scenes/playstation_dissolve.gdshader" id="1_h1b7q"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_31j4a"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_526om"]
+noise = SubResource("FastNoiseLite_31j4a")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7ft3v"]
 render_priority = 0
-shader = ExtResource("1_r0x1l")
-shader_parameter/emission_color = Color(1, 1, 1, 1)
-shader_parameter/emission_amount = null
+shader = ExtResource("1_h1b7q")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
 shader_parameter/burn_size = null
-shader_parameter/dissolve_amount = 0.599
+shader_parameter/dissolve_amount = 0.0
 shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_526om")
 
 [sub_resource type="SphereMesh" id="SphereMesh_l7rgm"]

@@ -4,6 +4,7 @@ signal destroyed
 @onready var hit_sound: AudioStreamPlayer3D = $HitSound;
 @onready var grind_sound: AudioStreamPlayer3D = $GrindSound
 @onready var collision: CollisionShape3D = $CollisionShape3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 var off_ground;
 
 
@@ -20,7 +21,9 @@ func destroy():
 	collision.queue_free()
 
 func dissolve():
-	queue_free()
+	animation_player.play("Dissolve");
+	delete = true;
+	#queue_free()
 	
 func play_hit_sound():
 	hit_sound.play();
@@ -33,8 +36,10 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if(body.is_in_group("concrete")):
-		#play_hit_sound();
 		hit_sound.play();
-	if (delete and not grind_sound.is_playing()):
+	if (delete and not grind_sound.is_playing() && !animation_player.is_playing()):
 		queue_free()
+	if timer.is_stopped():
+		dissolve()
+	
 

@@ -1,24 +1,19 @@
-[gd_scene load_steps=12 format=3 uid="uid://764k7tbwgbp1"]
+[gd_scene load_steps=14 format=3 uid="uid://764k7tbwgbp1"]
 
 [ext_resource type="Script" path="res://scripts/meat_sphere.gd" id="1_6esoq"]
-[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_pg5tw"]
 [ext_resource type="Shader" path="res://scenes/playstation_dissolve.gdshader" id="2_txh8v"]
 [ext_resource type="Texture2D" uid="uid://cj4v6koeckdlc" path="res://textures/strangeMeat/albedo.png" id="3_8cwws"]
-[ext_resource type="Texture2D" uid="uid://brdya6tv40sbu" path="res://textures/HumanSkin/human-skin-freckled_albedo.png" id="3_ex0rc"]
 [ext_resource type="AudioStream" uid="uid://bcht6xyfux5ks" path="res://audio/Sqelch.mp3" id="4_r50s5"]
 [ext_resource type="AudioStream" uid="uid://rlk1ohajgs06" path="res://audio/GumpGrind.wav" id="5_g6jro"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nu70e"]
-render_priority = 0
-shader = ExtResource("2_txh8v")
-shader_parameter/DissolveDirection = Vector3(0, -1, 0)
-shader_parameter/DissolveAmount = 0.3
-shader_parameter/T_BaseColor = ExtResource("3_ex0rc")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_r6uso"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_03n8o"]
+noise = SubResource("FastNoiseLite_r6uso")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7cr"]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_nu70e")
-shader = ExtResource("2_pg5tw")
+shader = ExtResource("2_txh8v")
 shader_parameter/affine_mapping = false
 shader_parameter/normal_depth = null
 shader_parameter/alpha_scissor = 0.5
@@ -26,12 +21,52 @@ shader_parameter/jitter = 0.25
 shader_parameter/roughness = 0.5
 shader_parameter/metalic = null
 shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/burn_size = 0.0
+shader_parameter/dissolve_amount = 0.0
 shader_parameter/albedo = ExtResource("3_8cwws")
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_03n8o")
 
 [sub_resource type="SphereMesh" id="SphereMesh_54fww"]
 material = SubResource("ShaderMaterial_uw7cr")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_h3o5c"]
+
+[sub_resource type="Animation" id="Animation_dj66b"]
+resource_name = "Dissolve"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:shader_parameter/dissolve_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_dylkc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:shader_parameter/dissolve_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i707w"]
+_data = {
+"Dissolve": SubResource("Animation_dj66b"),
+"RESET": SubResource("Animation_dylkc")
+}
 
 [node name="MeatSphere" type="RigidBody3D" groups=["Meat"]]
 collision_layer = 4
@@ -47,7 +82,7 @@ mesh = SubResource("SphereMesh_54fww")
 shape = SubResource("SphereShape3D_h3o5c")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 20.0
+wait_time = 5.0
 one_shot = true
 
 [node name="HitSound" type="AudioStreamPlayer3D" parent="."]
@@ -56,5 +91,10 @@ stream = ExtResource("4_r50s5")
 [node name="GrindSound" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.322427, 0)
 stream = ExtResource("5_g6jro")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i707w")
+}
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
