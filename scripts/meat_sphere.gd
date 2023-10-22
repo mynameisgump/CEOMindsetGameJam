@@ -21,26 +21,27 @@ func destroy():
 	collision.queue_free()
 
 func dissolve():
-	print("Dissolving")
 	animation_player.play("Dissolve");
 	delete = true;
-	#queue_free()
+
 	
 func play_hit_sound():
 	hit_sound.play();
 	
 func _ready():
-	timer.start()
+	pass
 
 func _process(delta):
+	if timer.is_stopped() and !delete:
+		dissolve()
+	if (delete and not grind_sound.is_playing() and !animation_player.is_playing()):
+		queue_free()
 	pass
 
 func _on_body_entered(body):
 	if(body.is_in_group("concrete")):
 		hit_sound.play();
-	if (delete and not grind_sound.is_playing() && !animation_player.is_playing()):
-		queue_free()
-	if timer.is_stopped():
-		dissolve()
+	
+	
 	
 
