@@ -115,4 +115,5 @@ stream = ExtResource("8_ap0k7")
 
 [connection signal="death" from="." to="Body" method="_on_character_body_3d_death"]
 [connection signal="sucking" from="." to="Body/Vacum" method="_on_character_body_3d_sucking"]
+[connection signal="sucking" from="." to="Body/Vacum/Vac_uv" method="_on_character_body_3d_sucking"]
 [connection signal="body_entered" from="Body/VacumTip" to="." method="_on_vacum_tip_body_entered"]
