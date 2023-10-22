@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://qe45nx6xy7we"]
+[gd_scene load_steps=9 format=3 uid="uid://qe45nx6xy7we"]
 
 [ext_resource type="PackedScene" uid="uid://diaecj3ihktwk" path="res://assets/buildings/shed/Shed.glb" id="1_25xfo"]
 [ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_hta1n"]
@@ -32,6 +32,9 @@ shader_parameter/albedo = ExtResource("4_p0ewh")
 [sub_resource type="BoxShape3D" id="BoxShape3D_j72bp"]
 size = Vector3(0.241336, 2.00197, 2.48516)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_awn7e"]
+size = Vector3(0.241336, 2.50202, 2.29201)
+
 [node name="Shed" instance=ExtResource("1_25xfo")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
@@ -52,3 +55,7 @@ shape = SubResource("BoxShape3D_j72bp")
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Wall_0/StaticBody3D" index="2"]
 transform = Transform3D(-4.37114e-08, 2.38419e-07, -1, 0.0929786, 0.995668, 2.33322e-07, 0.995668, -0.0929786, -6.56899e-08, -0.0203661, -5.41561e-05, 1.05955)
 shape = SubResource("BoxShape3D_j72bp")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Wall_0/StaticBody3D" index="3"]
+transform = Transform3D(-4.37114e-08, -1, -1.19209e-07, 1, -4.37114e-08, -1.19209e-07, 1.19209e-07, -1.19209e-07, 1, -0.0105133, 0.909829, -0.0378706)
+shape = SubResource("BoxShape3D_awn7e")

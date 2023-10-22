@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://vc1dxy657ll0"]
+[gd_scene load_steps=8 format=3 uid="uid://vc1dxy657ll0"]
 
 [ext_resource type="PackedScene" uid="uid://bd4od66b83t6k" path="res://assets/objects/Vac/Vac_uv.glb" id="1_5qquf"]
 [ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_ke03i"]
 [ext_resource type="Texture2D" uid="uid://brdya6tv40sbu" path="res://textures/HumanSkin/human-skin-freckled_albedo.png" id="3_5k8er"]
+[ext_resource type="Texture2D" uid="uid://cyabxum228qvk" path="res://textures/NoQuestions.PNG" id="4_s2wxy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hrl4e"]
 render_priority = 0
@@ -16,7 +17,19 @@ shader_parameter/metalic = null
 shader_parameter/resolution = Vector2i(320, 240)
 shader_parameter/albedo = ExtResource("3_5k8er")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aemr4"]
+albedo_texture = ExtResource("4_s2wxy")
+
+[sub_resource type="SphereMesh" id="SphereMesh_33hni"]
+material = SubResource("StandardMaterial3D_aemr4")
+radius = 0.25
+height = 0.5
+
 [node name="Vac_uv" instance=ExtResource("1_5qquf")]
 
 [node name="Cylinder" parent="." index="0"]
 surface_material_override/0 = SubResource("ShaderMaterial_hrl4e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(-0.997253, 0, 0.0740737, 0, 1, 0, -0.0740737, 0, -0.997253, 0, 0, 1.10348)
+mesh = SubResource("SphereMesh_33hni")

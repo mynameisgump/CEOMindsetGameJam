@@ -143,7 +143,8 @@ size = Vector3(0.25, 2, 0.25)
 [sub_resource type="BoxMesh" id="BoxMesh_v4b03"]
 size = Vector3(1.72, 1.285, 0.25)
 
-[sub_resource type="BoxMesh" id="BoxMesh_qmtwr"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_opfwv"]
+size = Vector3(2.00386, 2.04046, 0.485729)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ronic"]
 viewport_path = NodePath("Camera/SubViewport")
@@ -228,20 +229,18 @@ mesh = SubResource("BoxMesh_pbb2g")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.84535, 7.9345, 12.2192)
 mesh = SubResource("BoxMesh_v4b03")
 
-[node name="Button" type="Node3D" parent="." index="15"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.44738, 7.39239, 11.9853)
+[node name="StaticBody3D" type="StaticBody3D" parent="Monitor" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.85814, 7.44141, 12.1325)
 
-[node name="Post" type="MeshInstance3D" parent="Button" index="0"]
-mesh = SubResource("BoxMesh_pbb2g")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Monitor/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.171225, 0.02526)
+shape = SubResource("BoxShape3D_opfwv")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Button" index="1"]
-transform = Transform3D(0.13952, 0, 0, 0, 0.187461, 0, 0, 0, 0.200828, -0.00564766, 0.704811, 0.164896)
-mesh = SubResource("BoxMesh_qmtwr")
-
-[node name="Screen" type="Sprite3D" parent="." index="16"]
+[node name="Screen" type="Sprite3D" parent="." index="15"]
 transform = Transform3D(0.265, 0, 0, 0, 0.265, 0, 0, 0, 0.265, -7.83791, 7.9353, 12.346)
 texture = SubResource("ViewportTexture_ronic")
 
-[node name="GrinderWhirr" type="AudioStreamPlayer3D" parent="." index="17"]
+[node name="GrinderWhirr" type="AudioStreamPlayer3D" parent="." index="16"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.63852, 0)
 stream = ExtResource("8_gxywa")
+volume_db = -8.0

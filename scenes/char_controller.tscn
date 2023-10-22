@@ -106,6 +106,7 @@ shape = SubResource("CapsuleShape3D_7vtt4")
 
 [node name="VacumSucc" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_81cpw")
+volume_db = -17.0
 
 [node name="Absorbed" parent="." instance=ExtResource("5_aodl3")]
 

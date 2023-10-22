@@ -6,7 +6,8 @@ extends Area3D
 signal resume;
 var stopped = false;
 
-var increase_amount = 0.4;
+# var increase_amount = 0.4;
+var increase_amount = 4;
 
 func resume_grinding():
 	print("Resuming")
@@ -14,11 +15,11 @@ func resume_grinding():
 	for body in bodies:
 		if (body.is_in_group("Meat")):
 			body.destroy()
-			Vat.increase_liquid(0.4)
+			Vat.increase_liquid(increase_amount)
 			if (!GrindSound.playing):
 				GrindSound.play()
 		if (body.is_in_group("Player")):
-			body.queue_free();
+			body.kill()
 	stopped = false;
 	resume.emit()
 
@@ -34,7 +35,7 @@ func _on_body_entered(body):
 		if (body.is_in_group("Meat")):
 			grinder_particles.emitting = true;
 			body.destroy()
-			Vat.increase_liquid(0.4)
+			Vat.increase_liquid(increase_amount)
 			if (!GrindSound.playing):
 				GrindSound.play()
 		if (body.is_in_group("Player")):

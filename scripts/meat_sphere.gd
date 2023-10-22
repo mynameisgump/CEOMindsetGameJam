@@ -7,7 +7,7 @@ signal destroyed
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 var off_ground;
 
-
+@export var dissolve_time = 2;
 var delete = false;
 func remove():
 	# Play Shlurp?
@@ -29,6 +29,8 @@ func play_hit_sound():
 	hit_sound.play();
 	
 func _ready():
+	timer.wait_time = dissolve_time;
+	timer.start()
 	pass
 
 func _process(delta):

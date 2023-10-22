@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8dj8t4rmxv5r"]
+[gd_scene load_steps=6 format=3 uid="uid://c8dj8t4rmxv5r"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_6myg5"]
+[ext_resource type="FontFile" uid="uid://vw7tnbu62rx8" path="res://assets/fonts/Lyhyt Lauantai.ttf" id="1_fmmc4"]
 [ext_resource type="Texture2D" uid="uid://brdya6tv40sbu" path="res://textures/HumanSkin/human-skin-freckled_albedo.png" id="1_u3eik"]
+
+[sub_resource type="Theme" id="Theme_m2o7s"]
+default_font = ExtResource("1_fmmc4")
 
 [sub_resource type="Theme" id="Theme_q2b8o"]
 
@@ -12,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_m2o7s")
 script = ExtResource("1_6myg5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -19,6 +24,8 @@ script = ExtResource("1_6myg5")
 [node name="MoneyLabel" type="Label" parent="CanvasLayer"]
 offset_right = 214.0
 offset_bottom = 98.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_fmmc4")
 theme_override_font_sizes/font_size = 84
 text = "Money:"
 
@@ -27,6 +34,8 @@ offset_left = 774.0
 offset_top = 28.0
 offset_right = 1134.0
 offset_bottom = 101.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_fmmc4")
 theme_override_font_sizes/font_size = 51
 text = "Vac Meat: 0/50
 "
@@ -45,13 +54,18 @@ offset_bottom = 209.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_q2b8o")
+theme_override_colors/font_selected_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_fmmc4")
 tab_alignment = 1
 
 [node name="Upgrades" type="TabContainer" parent="CanvasLayer/UI"]
 layout_mode = 2
+theme_override_colors/font_selected_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_fmmc4")
 tab_alignment = 1
 
 [node name="Vacum" type="CenterContainer" parent="CanvasLayer/UI/Upgrades"]
+visible = false
 layout_mode = 2
 
 [node name="VacumUpgrades" type="GridContainer" parent="CanvasLayer/UI/Upgrades/Vacum"]
@@ -63,6 +77,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fmmc4")
 text = "Max Meat
 "
 horizontal_alignment = 1
@@ -74,7 +89,68 @@ expand_mode = 4
 
 [node name="MaxMeatBut" type="Button" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fmmc4")
+text = "$100
+"
+
+[node name="Meat" type="CenterContainer" parent="CanvasLayer/UI/Upgrades"]
+layout_mode = 2
+
+[node name="MeatUpgrades" type="GridContainer" parent="CanvasLayer/UI/Upgrades/Meat"]
+layout_mode = 2
+columns = 2
+
+[node name="MeatDissolve" type="VBoxContainer" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/MeatDissolve"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fmmc4")
+text = "Increase Meat Dissolve Time"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/MeatDissolve"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="IncreaseDissolveBut" type="Button" parent="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/MeatDissolve"]
+layout_mode = 2
+
+[node name="Stonks" type="TabContainer" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fmmc4")
+tab_alignment = 1
+
+[node name="Vacum" type="CenterContainer" parent="CanvasLayer/UI/Stonks"]
+layout_mode = 2
+
+[node name="VacumUpgrades" type="GridContainer" parent="CanvasLayer/UI/Stonks/Vacum"]
+layout_mode = 2
+columns = 2
+
+[node name="MaxMeat" type="VBoxContainer" parent="CanvasLayer/UI/Stonks/Vacum/VacumUpgrades"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Stonks/Vacum/VacumUpgrades/MaxMeat"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fmmc4")
+text = "Max Meat
+"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Stonks/Vacum/VacumUpgrades/MaxMeat"]
+layout_mode = 2
+texture = ExtResource("1_u3eik")
+expand_mode = 4
+
+[node name="MaxMeatBut" type="Button" parent="CanvasLayer/UI/Stonks/Vacum/VacumUpgrades/MaxMeat"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_fmmc4")
 text = "$100
 "
 
 [connection signal="pressed" from="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat/MaxMeatBut" to="." method="_on_max_meat_but_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/MeatDissolve/IncreaseDissolveBut" to="." method="_on_increase_dissolve_but_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Stonks/Vacum/VacumUpgrades/MaxMeat/MaxMeatBut" to="." method="_on_max_meat_but_pressed"]
