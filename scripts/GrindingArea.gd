@@ -2,6 +2,7 @@ extends Area3D
 @onready var GrindSound = $GrindSound
 @onready var complete_sound = $Complete
 @onready var Vat = $Vat
+@onready var grinder_particles = $GrinderParticles
 signal resume;
 var stopped = false;
 
@@ -16,6 +17,8 @@ func resume_grinding():
 			Vat.increase_liquid(0.4)
 			if (!GrindSound.playing):
 				GrindSound.play()
+		if (body.is_in_group("Player")):
+			body.queue_free();
 	stopped = false;
 	resume.emit()
 
@@ -27,12 +30,20 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if (!stopped):
+		print(body)
 		if (body.is_in_group("Meat")):
+			grinder_particles.emitting = true;
 			body.destroy()
 			Vat.increase_liquid(0.4)
 			if (!GrindSound.playing):
 				GrindSound.play()
+		if (body.is_in_group("Player")):
+			body.kill();
 
 func _on_vat_full():
 	stopped=true;
 	complete_sound.play();
+
+
+func _on_character_body_3d_death():
+	pass # Replace with function body.

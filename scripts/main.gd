@@ -22,8 +22,6 @@ var spawn_impulse_strength = 2;
 func add_meat_sphere():
 	var x = randf_range(-96,96);
 	var z = randf_range(-96,96);
-#	var x = randf_range(-10,10);
-#	var z = randf_range(-10,10);
 	var y = randf_range(20,60);
 	var impulse_x = randf_range(-1,1)*spawn_impulse_strength;
 	var impulse_z = randf_range(-1,1)*spawn_impulse_strength;
@@ -67,3 +65,8 @@ func _on_character_body_3d_shoot_meat_sphere(new_position, impulse):
 	var impulse_strength = 10;
 	meat_sphere.set_position(new_position);
 	meat_sphere.apply_impulse(impulse*impulse_strength);
+
+
+func _on_hud_upgrade(upgrade_name):
+	money -= 100;
+	pass # Replace with function body.

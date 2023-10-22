@@ -14,6 +14,7 @@ var hvel : Vector3;
 
 @onready var succ_particles: GPUParticles3D = $Body/SuccParticles;
 @onready var sound_absorbed: AudioStreamPlayer3D = $Absorbed;
+@onready var sound_death: AudioStreamPlayer3D = $Death;
 
 @onready var vacum_sounds: Node3D = $Body/VacumSounds;
 
@@ -67,6 +68,13 @@ var spew_sounds = [];
 var spewing = false;
 var is_sucking = false;
 
+signal death;
+var dead = false;
+
+func kill():
+	dead = true;
+	sound_death.play();
+	death.emit();
 
 func spawn_sound_absorbed():
 	var new_sound = absorbed_sound.instantiate();
@@ -150,28 +158,29 @@ func handle_movement(delta : float) -> void:
 	
 
 func _physics_process(delta):
-	handle_movement(delta)
-	handle_input(delta)
-	
-	if spewing && total_meat_spheres > 0:
+	if not dead:
+		handle_movement(delta)
+		handle_input(delta)
 		
-		total_meat_spheres -= 1;
-		var forward: Vector3 = -self.get_global_transform().basis.z;
-		shoot_meat_sphere.emit(suction_point.global_position,forward);
-		spawn_sound_spew();
+		if spewing && total_meat_spheres > 0:
+			
+			total_meat_spheres -= 1;
+			var forward: Vector3 = -self.get_global_transform().basis.z;
+			shoot_meat_sphere.emit(suction_point.global_position,forward);
+			spawn_sound_spew();
+			
 		
-	
-	if (absorbed_sounds.size() > 0):
-		for sound in absorbed_sounds:
-			if sound.is_playing() == false:
-				absorbed_sounds.erase(sound);
-				sound.queue_free()
-				
-	if (spew_sounds.size() > 0):
-		for sound in spew_sounds:
-			if sound.is_playing() == false:
-				spew_sounds.erase(sound);
-				sound.queue_free()
+		if (absorbed_sounds.size() > 0):
+			for sound in absorbed_sounds:
+				if sound.is_playing() == false:
+					absorbed_sounds.erase(sound);
+					sound.queue_free()
+					
+		if (spew_sounds.size() > 0):
+			for sound in spew_sounds:
+				if sound.is_playing() == false:
+					spew_sounds.erase(sound);
+					sound.queue_free()
 	
 
 
@@ -184,3 +193,9 @@ func _on_vacum_tip_body_entered(body):
 		spawn_sound_absorbed();
 
 
+
+
+func _on_hud_upgrade(upgrade_name):
+	if upgrade_name=="max_meat":
+		vac_max += 5;
+	pass # Replace with function body.

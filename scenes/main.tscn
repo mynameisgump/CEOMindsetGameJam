@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://mmvk2vl2d0xj"]
+[gd_scene load_steps=22 format=3 uid="uid://mmvk2vl2d0xj"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_aywe7"]
 [ext_resource type="PackedScene" uid="uid://bptoi82knvd3o" path="res://scenes/meat_grinder.tscn" id="1_upuhs"]
@@ -12,9 +12,35 @@
 [ext_resource type="PackedScene" uid="uid://qe45nx6xy7we" path="res://scenes/objects/shed.tscn" id="9_4i6h2"]
 [ext_resource type="PackedScene" uid="uid://c60ectaknudt3" path="res://scenes/objects/truck.tscn" id="10_htn8l"]
 [ext_resource type="PackedScene" uid="uid://c8dj8t4rmxv5r" path="res://scenes/hud.tscn" id="11_tudvx"]
+[ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="13_4s7go"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6nyb1"]
 size = Vector3(3, 1, 3)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1enif"]
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 9.8, 0)
+angular_velocity_max = 307.42
+linear_accel_min = 67.42
+linear_accel_max = 67.42
+color = Color(1, 0, 0.00784314, 1)
+attractor_interaction_enabled = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aep2y"]
+render_priority = 0
+shader = ExtResource("13_4s7go")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lhw7q"]
+material = SubResource("ShaderMaterial_aep2y")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fxwa6"]
 size = Vector3(3.09705, 1, 3.01807)
@@ -44,7 +70,7 @@ script = ExtResource("1_aywe7")
 [node name="GrindingArea" type="Area3D" parent="Map/meat_grinder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.532229, 0)
 collision_layer = 8
-collision_mask = 4
+collision_mask = 6
 script = ExtResource("3_6x6k2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/meat_grinder/GrindingArea"]
@@ -61,6 +87,15 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -11.965, 0)
 [node name="Complete" type="AudioStreamPlayer3D" parent="Map/meat_grinder/GrindingArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.03008, 0)
 stream = ExtResource("6_w00wv")
+
+[node name="GrinderParticles" type="GPUParticles3D" parent="Map/meat_grinder/GrindingArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00607497, 0)
+emitting = false
+amount = 200
+one_shot = true
+visibility_aabb = AABB(-4, -3.99696, -4, 8, 7.99391, 8)
+process_material = SubResource("ParticleProcessMaterial_1enif")
+draw_pass_1 = SubResource("SphereMesh_lhw7q")
 
 [node name="Plug" type="StaticBody3D" parent="Map/meat_grinder"]
 
@@ -173,4 +208,7 @@ one_shot = true
 [connection signal="resume" from="Map/meat_grinder/GrindingArea" to="Map/meat_grinder" method="_on_grinding_area_resume"]
 [connection signal="full" from="Map/meat_grinder/GrindingArea/Vat" to="Map/meat_grinder" method="_on_vat_full"]
 [connection signal="full" from="Map/meat_grinder/GrindingArea/Vat" to="Map/meat_grinder/GrindingArea" method="_on_vat_full"]
+[connection signal="death" from="CharacterBody3D" to="Map/meat_grinder/GrindingArea" method="_on_character_body_3d_death"]
 [connection signal="shoot_meat_sphere" from="CharacterBody3D" to="." method="_on_character_body_3d_shoot_meat_sphere"]
+[connection signal="upgrade" from="HUD" to="." method="_on_hud_upgrade"]
+[connection signal="upgrade" from="HUD" to="CharacterBody3D" method="_on_hud_upgrade"]

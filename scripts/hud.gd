@@ -5,8 +5,8 @@ signal upgrade(upgrade_name);
 @onready var canvas_layer = $CanvasLayer
 @onready var ui = $CanvasLayer/UI
 
-
 var open = false;
+var total_money = 0;
 
 func buy_upgrade():
 	
@@ -14,6 +14,7 @@ func buy_upgrade():
 
 func set_money(new_money):
 	var money_label: Label = canvas_layer.get_child(0);
+	total_money = new_money;
 	money_label.text = str("Money: ",new_money);
 
 func set_succ_meat(new_meat, vac_max):
@@ -36,3 +37,10 @@ func _process(delta):
 		ui.visible = false;
 	pass
 
+
+
+func _on_max_meat_but_pressed():
+	print("Pressed")
+	if (total_money-100>=0):
+		upgrade.emit("max_meat")
+	pass # Replace with function body.

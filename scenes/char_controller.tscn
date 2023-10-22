@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ghdhujrj2tic"]
+[gd_scene load_steps=15 format=3 uid="uid://ghdhujrj2tic"]
 
 [ext_resource type="Script" path="res://scripts/CharacterBody3D.gd" id="1_dx8eo"]
 [ext_resource type="Script" path="res://scripts/PlayerBodyScript.gd" id="2_gq7dg"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://vc1dxy657ll0" path="res://scenes/objects/VacMesh.tscn" id="4_wluoa"]
 [ext_resource type="PackedScene" uid="uid://cqixjk1rxpthk" path="res://scenes/absorbed_sound.tscn" id="5_aodl3"]
 [ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="5_gyf5b"]
+[ext_resource type="AudioStream" uid="uid://bg10fbynmca78" path="res://audio/GumpDeath.wav" id="8_ap0k7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6m17"]
 radius = 1.0967
@@ -39,7 +40,7 @@ height = 0.25
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7vtt4"]
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_dx8eo")
 
@@ -80,6 +81,7 @@ shape = SubResource("BoxShape3D_c2ug3")
 
 [node name="SuccParticles" type="GPUParticles3D" parent="Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08165e-12, -0.368963, -5.17393)
+emitting = false
 lifetime = 0.25
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_mjfw5")
@@ -107,5 +109,9 @@ stream = ExtResource("4_81cpw")
 
 [node name="Absorbed" parent="." instance=ExtResource("5_aodl3")]
 
+[node name="Death" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_ap0k7")
+
+[connection signal="death" from="." to="Body" method="_on_character_body_3d_death"]
 [connection signal="sucking" from="." to="Body/Vacum" method="_on_character_body_3d_sucking"]
 [connection signal="body_entered" from="Body/VacumTip" to="." method="_on_vacum_tip_body_entered"]
