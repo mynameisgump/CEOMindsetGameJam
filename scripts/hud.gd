@@ -5,6 +5,7 @@ signal open_hud();
 
 @onready var canvas_layer = $CanvasLayer
 @onready var ui = $CanvasLayer/UI
+@onready var animation_player = $SubViewport/AnimationPlayer
 
 var open = false;
 var total_money = 0;
@@ -24,6 +25,7 @@ func set_succ_meat(new_meat, vac_max):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	animation_player.play("rotate_Vac")
 	ui.visible = false;
 	pass # Replace with function body.
 

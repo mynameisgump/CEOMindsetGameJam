@@ -1,13 +1,53 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8dj8t4rmxv5r"]
+[gd_scene load_steps=10 format=3 uid="uid://c8dj8t4rmxv5r"]
 
 [ext_resource type="Script" path="res://scripts/hud.gd" id="1_6myg5"]
 [ext_resource type="FontFile" uid="uid://vw7tnbu62rx8" path="res://assets/fonts/Lyhyt Lauantai.ttf" id="1_fmmc4"]
 [ext_resource type="Texture2D" uid="uid://brdya6tv40sbu" path="res://textures/HumanSkin/human-skin-freckled_albedo.png" id="1_u3eik"]
+[ext_resource type="PackedScene" uid="uid://vc1dxy657ll0" path="res://scenes/objects/VacMesh.tscn" id="4_x2kfs"]
 
 [sub_resource type="Theme" id="Theme_m2o7s"]
 default_font = ExtResource("1_fmmc4")
 
 [sub_resource type="Theme" id="Theme_q2b8o"]
+
+[sub_resource type="Animation" id="Animation_p8aa1"]
+resource_name = "rotate_Vac"
+length = 2.0
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D/Vac_uv:quaternion")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Quaternion(0, 0.707107, 0, 0.707107), Quaternion(0, -2.18557e-08, 0, 1), Quaternion(0, -0.707107, 0, 0.707107), Quaternion(0, 1, 0, 2.18557e-08), Quaternion(0, 0.707107, 0, 0.707107)]
+}
+
+[sub_resource type="Animation" id="Animation_qvlwe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D/Vac_uv:quaternion")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Quaternion(0, -0.730794, 0, 0.682598)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qq1pp"]
+_data = {
+"RESET": SubResource("Animation_qvlwe"),
+"rotate_Vac": SubResource("Animation_p8aa1")
+}
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -65,7 +105,6 @@ theme_override_fonts/font = ExtResource("1_fmmc4")
 tab_alignment = 1
 
 [node name="Vacum" type="CenterContainer" parent="CanvasLayer/UI/Upgrades"]
-visible = false
 layout_mode = 2
 
 [node name="VacumUpgrades" type="GridContainer" parent="CanvasLayer/UI/Upgrades/Vacum"]
@@ -84,7 +123,6 @@ horizontal_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat"]
 layout_mode = 2
-texture = ExtResource("1_u3eik")
 expand_mode = 4
 
 [node name="MaxMeatBut" type="Button" parent="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat"]
@@ -94,6 +132,7 @@ text = "$100
 "
 
 [node name="Meat" type="CenterContainer" parent="CanvasLayer/UI/Upgrades"]
+visible = false
 layout_mode = 2
 
 [node name="MeatUpgrades" type="GridContainer" parent="CanvasLayer/UI/Upgrades/Meat"]
@@ -150,6 +189,23 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_fmmc4")
 text = "$100
 "
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+cull_mask = 1048573
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewport"]
+libraries = {
+"": SubResource("AnimationLibrary_qq1pp")
+}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport"]
+layers = 2
+
+[node name="Vac_uv" parent="SubViewport/MeshInstance3D" instance=ExtResource("4_x2kfs")]
+transform = Transform3D(-0.083106, 0, -1.21717, 0, 1.22, 0, 1.21717, 0, -0.083106, 0.02, 0, -2.141)
+rotation_edit_mode = 1
 
 [connection signal="pressed" from="CanvasLayer/UI/Upgrades/Vacum/VacumUpgrades/MaxMeat/MaxMeatBut" to="." method="_on_max_meat_but_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Upgrades/Meat/MeatUpgrades/MeatDissolve/IncreaseDissolveBut" to="." method="_on_increase_dissolve_but_pressed"]
