@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bptoi82knvd3o"]
+[gd_scene load_steps=21 format=3 uid="uid://bptoi82knvd3o"]
 
 [ext_resource type="PackedScene" uid="uid://oyar58wbrat3" path="res://assets/tiles/meatgrinder/meat_grinder.glb" id="1_ex8tk"]
 [ext_resource type="Script" path="res://scripts/meat_grinder.gd" id="2_i5xog"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://c0yc8mqsxyqt4" path="res://materials/playstation_concrete.tres" id="5_qg31w"]
 [ext_resource type="Texture2D" uid="uid://mci4e7kxg22r" path="res://textures/metalPlate/metal_plate_diff_2k.jpg" id="6_m6umt"]
 [ext_resource type="Material" uid="uid://dhkartg7nnymv" path="res://materials/basementWall.tres" id="7_q0ikd"]
+[ext_resource type="AudioStream" uid="uid://di1bdtb8d6b45" path="res://audio/GrinderWhirr.wav" id="8_gxywa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6nhck"]
 render_priority = 0
@@ -240,3 +241,7 @@ mesh = SubResource("BoxMesh_qmtwr")
 [node name="Screen" type="Sprite3D" parent="." index="16"]
 transform = Transform3D(0.265, 0, 0, 0, 0.265, 0, 0, 0, 0.265, -7.83791, 7.9353, 12.346)
 texture = SubResource("ViewportTexture_ronic")
+
+[node name="GrinderWhirr" type="AudioStreamPlayer3D" parent="." index="17"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.63852, 0)
+stream = ExtResource("8_gxywa")

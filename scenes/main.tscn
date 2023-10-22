@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://mmvk2vl2d0xj"]
+[gd_scene load_steps=18 format=3 uid="uid://mmvk2vl2d0xj"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_aywe7"]
 [ext_resource type="PackedScene" uid="uid://bptoi82knvd3o" path="res://scenes/meat_grinder.tscn" id="1_upuhs"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dxstwd0qw7bgn" path="res://scenes/Vat.tscn" id="3_205m7"]
 [ext_resource type="AudioStream" uid="uid://rlk1ohajgs06" path="res://audio/GumpGrind.wav" id="4_dvlke"]
 [ext_resource type="PackedScene" uid="uid://b3w5qjee5ncni" path="res://scenes/objects/sleeping_bag.tscn" id="6_in8ag"]
+[ext_resource type="AudioStream" uid="uid://bnsdhg8qrw073" path="res://audio/VatComplete.wav" id="6_w00wv"]
 [ext_resource type="PackedScene" uid="uid://qe45nx6xy7we" path="res://scenes/objects/shed.tscn" id="9_4i6h2"]
 [ext_resource type="PackedScene" uid="uid://c60ectaknudt3" path="res://scenes/objects/truck.tscn" id="10_htn8l"]
 [ext_resource type="PackedScene" uid="uid://c8dj8t4rmxv5r" path="res://scenes/hud.tscn" id="11_tudvx"]
@@ -56,6 +57,10 @@ stream = ExtResource("4_dvlke")
 
 [node name="Vat" parent="Map/meat_grinder/GrindingArea" instance=ExtResource("3_205m7")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -11.965, 0)
+
+[node name="Complete" type="AudioStreamPlayer3D" parent="Map/meat_grinder/GrindingArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.03008, 0)
+stream = ExtResource("6_w00wv")
 
 [node name="Plug" type="StaticBody3D" parent="Map/meat_grinder"]
 
@@ -165,5 +170,7 @@ one_shot = true
 [node name="HUD" parent="." instance=ExtResource("11_tudvx")]
 
 [connection signal="body_entered" from="Map/meat_grinder/GrindingArea" to="Map/meat_grinder/GrindingArea" method="_on_body_entered"]
+[connection signal="resume" from="Map/meat_grinder/GrindingArea" to="Map/meat_grinder" method="_on_grinding_area_resume"]
+[connection signal="full" from="Map/meat_grinder/GrindingArea/Vat" to="Map/meat_grinder" method="_on_vat_full"]
 [connection signal="full" from="Map/meat_grinder/GrindingArea/Vat" to="Map/meat_grinder/GrindingArea" method="_on_vat_full"]
 [connection signal="shoot_meat_sphere" from="CharacterBody3D" to="." method="_on_character_body_3d_shoot_meat_sphere"]
