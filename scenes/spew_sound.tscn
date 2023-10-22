@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://rgehj3or3yxa"]
+
+[ext_resource type="AudioStream" uid="uid://bifror1uyneir" path="res://audio/VacOutDone.wav" id="1_5cmgt"]
+
+[node name="SpewSound" type="AudioStreamPlayer3D"]
+stream = ExtResource("1_5cmgt")

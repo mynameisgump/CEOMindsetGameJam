@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/Vacum.gd" id="3_o23es"]
 [ext_resource type="AudioStream" uid="uid://d6rh0xkot6t6" path="res://audio/Succ_Vac.wav" id="4_81cpw"]
 [ext_resource type="PackedScene" uid="uid://vc1dxy657ll0" path="res://scenes/objects/VacMesh.tscn" id="4_wluoa"]
-[ext_resource type="PackedScene" path="res://scenes/absorbed_sound.tscn" id="5_aodl3"]
+[ext_resource type="PackedScene" uid="uid://cqixjk1rxpthk" path="res://scenes/absorbed_sound.tscn" id="5_aodl3"]
 [ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="5_gyf5b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6m17"]

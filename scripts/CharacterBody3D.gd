@@ -21,7 +21,9 @@ var hvel : Vector3;
 
 # Preloading Scenes
 var absorbed_sound = preload("res://scenes/absorbed_sound.tscn");
+var spew_sound = preload("res://scenes/spew_sound.tscn");
 var MeatSphere = preload("res://scenes/meat_sphere.tscn");
+
 
 # Export Vars
 @export var GRAVITY = 9.8;
@@ -61,6 +63,7 @@ var LEAN_SPEED = 5;
 var total_meat_spheres = 0;
 
 var absorbed_sounds = [];
+var spew_sounds = [];
 var spewing = false;
 var is_sucking = false;
 
@@ -70,6 +73,12 @@ func spawn_sound_absorbed():
 	vacum_sounds.add_child(new_sound);
 	new_sound.play();
 	absorbed_sounds.append(new_sound);
+	
+func spawn_sound_spew():
+	var new_sound = spew_sound.instantiate();
+	vacum_sounds.add_child(new_sound);
+	new_sound.play();
+	spew_sounds.append(new_sound);
 
 func is_moving():
 	return Input.is_action_pressed("move_left") or \
@@ -145,15 +154,23 @@ func _physics_process(delta):
 	handle_input(delta)
 	
 	if spewing && total_meat_spheres > 0:
+		
 		total_meat_spheres -= 1;
 		var forward: Vector3 = -self.get_global_transform().basis.z;
 		shoot_meat_sphere.emit(suction_point.global_position,forward);
+		spawn_sound_spew();
 		
 	
 	if (absorbed_sounds.size() > 0):
 		for sound in absorbed_sounds:
 			if sound.is_playing() == false:
 				absorbed_sounds.erase(sound);
+				sound.queue_free()
+				
+	if (spew_sounds.size() > 0):
+		for sound in spew_sounds:
+			if sound.is_playing() == false:
+				spew_sounds.erase(sound);
 				sound.queue_free()
 	
 
