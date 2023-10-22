@@ -1,13 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://764k7tbwgbp1"]
+[gd_scene load_steps=12 format=3 uid="uid://764k7tbwgbp1"]
 
 [ext_resource type="Script" path="res://scripts/meat_sphere.gd" id="1_6esoq"]
 [ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_pg5tw"]
+[ext_resource type="Shader" path="res://scenes/playstation_dissolve.gdshader" id="2_txh8v"]
 [ext_resource type="Texture2D" uid="uid://cj4v6koeckdlc" path="res://textures/strangeMeat/albedo.png" id="3_8cwws"]
+[ext_resource type="Texture2D" uid="uid://brdya6tv40sbu" path="res://textures/HumanSkin/human-skin-freckled_albedo.png" id="3_ex0rc"]
 [ext_resource type="AudioStream" uid="uid://bcht6xyfux5ks" path="res://audio/Sqelch.mp3" id="4_r50s5"]
 [ext_resource type="AudioStream" uid="uid://rlk1ohajgs06" path="res://audio/GumpGrind.wav" id="5_g6jro"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1g86h"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nu70e"]
 render_priority = 0
+shader = ExtResource("2_txh8v")
+shader_parameter/DissolveDirection = Vector3(0, -1, 0)
+shader_parameter/DissolveAmount = 0.3
+shader_parameter/T_BaseColor = ExtResource("3_ex0rc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7cr"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_nu70e")
 shader = ExtResource("2_pg5tw")
 shader_parameter/affine_mapping = false
 shader_parameter/normal_depth = null
@@ -19,7 +29,7 @@ shader_parameter/resolution = Vector2i(320, 240)
 shader_parameter/albedo = ExtResource("3_8cwws")
 
 [sub_resource type="SphereMesh" id="SphereMesh_54fww"]
-material = SubResource("ShaderMaterial_1g86h")
+material = SubResource("ShaderMaterial_uw7cr")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_h3o5c"]
 

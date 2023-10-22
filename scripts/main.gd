@@ -6,6 +6,7 @@ extends Node3D
 @onready var meat_sphere_spawn = $truck/SpawnPoint;
 @onready var meat_spawn_timer = $MeatSpawnTimer;
 @onready var hud = $HUD
+@onready var player = $CharacterBody3D
 
 var MeatSphere = preload("res://scenes/meat_sphere.tscn");
 
@@ -32,14 +33,15 @@ func add_meat_sphere():
 	meat_sphere.set_position(Vector3(x,y,z));
 	meat_sphere.apply_impulse(Vector3(impulse_x,0,impulse_z))
 
+func handle_ui(delta):
+	hud.set_succ_meat(player.total_meat_spheres, player.vac_max);
+	hud.set_money(money);
 
 func _ready():
 	pass
 	
 func _process(delta):
-#	if Input.is_action_just_pressed("add100"):
-#		meat_to_spawn = 50;
-#		spawning = true;
+	handle_ui(delta);
 
 	if Input.is_action_just_pressed("player_dump_vat"):
 		grinding_area.resume_grinding();
@@ -56,7 +58,7 @@ func _process(delta):
 
 			meat_spawn_timer.wait_time = new_time;
 			meat_spawn_timer.start();
-	hud.set_money(money);
+
 
 
 func _on_character_body_3d_shoot_meat_sphere(new_position, impulse):

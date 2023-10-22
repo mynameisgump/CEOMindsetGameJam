@@ -29,4 +29,3 @@ func _process(delta):
 
 func _on_character_body_3d_sucking(value):
 	sucking = value;
-	pass # Replace with function body.

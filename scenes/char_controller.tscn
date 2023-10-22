@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ghdhujrj2tic"]
+[gd_scene load_steps=14 format=3 uid="uid://ghdhujrj2tic"]
 
 [ext_resource type="Script" path="res://scripts/CharacterBody3D.gd" id="1_dx8eo"]
 [ext_resource type="Script" path="res://scripts/PlayerBodyScript.gd" id="2_gq7dg"]
@@ -7,10 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://vc1dxy657ll0" path="res://scenes/objects/VacMesh.tscn" id="4_wluoa"]
 [ext_resource type="PackedScene" path="res://scenes/absorbed_sound.tscn" id="5_aodl3"]
 [ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="5_gyf5b"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_fidl2"]
-top_radius = 0.25
-bottom_radius = 0.25
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h6m17"]
 radius = 1.0967
@@ -60,12 +56,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08165e-12, -1.5, -2.08165e
 collision_layer = 16
 collision_mask = 4
 script = ExtResource("3_o23es")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Vacum"]
-transform = Transform3D(1, 0, 0, 0, -0.0825821, -0.996584, 0, 0.996584, -0.0825821, 0.314, 1.033, 0.23)
-visible = false
-mesh = SubResource("CylinderMesh_fidl2")
-skeleton = NodePath("../../..")
 
 [node name="SuctionRadius" type="CollisionShape3D" parent="Body/Vacum"]
 transform = Transform3D(1, 0, 0, 0, 0.0124264, 0.999923, 0, -0.999923, 0.0124264, 0.315454, 1.11837, -2.88327)

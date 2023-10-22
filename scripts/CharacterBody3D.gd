@@ -23,18 +23,21 @@ var hvel : Vector3;
 var absorbed_sound = preload("res://scenes/absorbed_sound.tscn");
 var MeatSphere = preload("res://scenes/meat_sphere.tscn");
 
+# Export Vars
 @export var GRAVITY = 9.8;
 @export var MAX_SPEED: float = 10.0;
-# Original Default of 18
 @export var JUMP_SPEED = 500;
 @export var ACCEL = 4.5;
 @export var MAX_ACCEL = 150.0;
 @export var DEACCEL= 0.86;
 @export var MAX_SLOPE_ANGLE = 40;
 @export var default_fov = 75;
+@export var vac_max: int = 5;
 
+# Signals
 signal sucking(value);
-signal shoot_meat_sphere(new_position, impulse);	
+signal shoot_meat_sphere(new_position, impulse);
+
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -60,7 +63,7 @@ var total_meat_spheres = 0;
 var absorbed_sounds = [];
 var spewing = false;
 var is_sucking = false;
-@export var vac_max: int = 5;
+
 
 func spawn_sound_absorbed():
 	var new_sound = absorbed_sound.instantiate();
@@ -87,13 +90,14 @@ func handle_input(delta : float) -> void:
 		lean_right = true;
 		z_tilt_target = -z_tilt_value*5;
 	
-	if Input.is_action_just_pressed("suck"):
+	if Input.is_action_just_pressed("suck") and total_meat_spheres < vac_max:
+		print("Whhy :()")
 		sound_vacum_succ.play()
 		succ_particles.emitting = true;
 		sucking.emit(true);
 		is_sucking = true;
 
-	if Input.is_action_just_released("suck"):
+	if Input.is_action_just_released("suck") or total_meat_spheres >= vac_max:
 		sound_vacum_succ.stop()
 		succ_particles.emitting = false;
 		sucking.emit(false);
@@ -151,6 +155,8 @@ func _physics_process(delta):
 			if sound.is_playing() == false:
 				absorbed_sounds.erase(sound);
 				sound.queue_free()
+	
+
 
 
 func _on_vacum_tip_body_entered(body):
@@ -159,4 +165,5 @@ func _on_vacum_tip_body_entered(body):
 		body.remove();
 		total_meat_spheres += 1;
 		spawn_sound_absorbed();
+
 

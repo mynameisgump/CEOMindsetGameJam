@@ -16,13 +16,13 @@ script = ExtResource("1_6myg5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Money" type="Label" parent="CanvasLayer"]
+[node name="MoneyLabel" type="Label" parent="CanvasLayer"]
 offset_right = 214.0
 offset_bottom = 98.0
 theme_override_font_sizes/font_size = 84
 text = "Money:"
 
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="MeatLabel" type="Label" parent="CanvasLayer"]
 offset_left = 774.0
 offset_top = 28.0
 offset_right = 1134.0
