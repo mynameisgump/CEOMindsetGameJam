@@ -10,7 +10,6 @@ var stopped = false;
 var increase_amount = 0.8;
 
 func resume_grinding():
-	print("Resuming")
 	var bodies = self.get_overlapping_bodies();
 	for body in bodies:
 		if (body.is_in_group("Meat")):
@@ -31,7 +30,6 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if (!stopped):
-		print(body)
 		if (body.is_in_group("Meat")):
 			grinder_particles.emitting = true;
 			body.destroy()

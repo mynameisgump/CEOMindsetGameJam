@@ -18,7 +18,8 @@ func destroy():
 	grind_sound.play()
 	delete = true;
 	self.visible = false;
-	collision.queue_free()
+	if collision:
+		collision.queue_free()
 
 func dissolve():
 	animation_player.play("Dissolve");

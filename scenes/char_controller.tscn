@@ -125,6 +125,7 @@ wait_time = 0.5
 one_shot = true
 
 [connection signal="death" from="." to="Body" method="_on_character_body_3d_death"]
+[connection signal="menu_opened" from="." to="Body" method="_on_character_body_3d_menu_opened"]
 [connection signal="spewing_sig" from="." to="Body/Vacum/Vac_uv" method="_on_character_body_3d_spewing_sig"]
 [connection signal="sucking" from="." to="Body/Vacum" method="_on_character_body_3d_sucking"]
 [connection signal="sucking" from="." to="Body/Vacum/Vac_uv" method="_on_character_body_3d_sucking"]

@@ -1,14 +1,14 @@
-[gd_scene load_steps=32 format=3 uid="uid://vc1dxy657ll0"]
+[gd_scene load_steps=33 format=3 uid="uid://vc1dxy657ll0"]
 
 [ext_resource type="PackedScene" uid="uid://bd4od66b83t6k" path="res://assets/objects/Vac/Vac_uv.glb" id="1_5qquf"]
 [ext_resource type="Script" path="res://scenes/objects/VacMesh.gd" id="2_ashsw"]
 [ext_resource type="Shader" path="res://shaders/playstation.gdshader" id="2_ke03i"]
 [ext_resource type="Texture2D" uid="uid://brdya6tv40sbu" path="res://textures/HumanSkin/human-skin-freckled_albedo.png" id="3_5k8er"]
-[ext_resource type="Texture2D" uid="uid://cyabxum228qvk" path="res://textures/NoQuestions.PNG" id="4_s2wxy"]
 [ext_resource type="Texture2D" uid="uid://wpcpmdxktdf7" path="res://assets/teeth/Teeth_proccessed_origin_Image_0.png" id="5_xidye"]
 [ext_resource type="Texture2D" uid="uid://cta0n4k5plm1h" path="res://assets/teeth/Teeth_proccessed_origin_Image_1.png" id="6_4dgwj"]
 [ext_resource type="Texture2D" uid="uid://4iksv8p6u8ro" path="res://assets/teeth/Teeth_proccessed_origin_Image_2.png" id="7_50erf"]
 [ext_resource type="Texture2D" uid="uid://bm0mxcfulemx2" path="res://assets/tongue/Tongue_Armature_Image_0.png" id="8_3nqta"]
+[ext_resource type="Texture2D" uid="uid://bwwebuvl58lct" path="res://assets/tongue/Thin_Tongue_arm_2_Image_0.png" id="9_vxrmo"]
 [ext_resource type="Texture2D" uid="uid://bn6k5w56xxjp0" path="res://textures/Vom.PNG" id="10_bj2jf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hrl4e"]
@@ -24,7 +24,6 @@ shader_parameter/resolution = Vector2i(320, 240)
 shader_parameter/albedo = ExtResource("3_5k8er")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcggx"]
-albedo_texture = ExtResource("4_s2wxy")
 
 [sub_resource type="SphereMesh" id="SphereMesh_33hni"]
 material = SubResource("StandardMaterial3D_bcggx")
@@ -155,70 +154,17 @@ bind/4/name = &"Bone.004"
 bind/4/bone = -1
 bind/4/pose = Transform3D(0.0054644, -0.999985, -1.53915e-07, 0.999985, 0.0054644, 7.34211e-10, 1.06874e-10, -1.53917e-07, 1, 0.00845752, -0.954484, 1.34524e-07)
 
-[sub_resource type="Animation" id="Animation_g847j"]
-resource_name = "Start_succ"
-length = 0.25
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Teeth/Top:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.185108, 1.03563, -0.0866164), Vector3(-0.205334, 1.30846, -0.317802)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Teeth/Top:quaternion")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Quaternion(-0.707107, 0, 0, 0.707107), Quaternion(0.972562, 0.0325686, -0.0325686, -0.228039)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Teeth/Bottom:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.170008, 0.449279, -0.100955), Vector3(-0.182401, 0.163531, -0.242604)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Teeth/Bottom:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-1.5708, 0, 0), Vector3(-0.932024, 0.0872663, -0.0872664)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Tongue:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, -0.732333), Vector3(0, 0, -1.73602)]
-}
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aymo4"]
+render_priority = 0
+shader = ExtResource("2_ke03i")
+shader_parameter/affine_mapping = false
+shader_parameter/normal_depth = null
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/roughness = 0.5
+shader_parameter/metalic = null
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("9_vxrmo")
 
 [sub_resource type="Animation" id="Animation_tabei"]
 length = 0.001
@@ -310,6 +256,294 @@ tracks/8/path = NodePath("Tongue/Armature/Skeleton3D:Bone.004")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = PackedFloat32Array(0, 1, 5.52654e-11, -1.09819e-11, -0.00282311, 0.999996)
+
+[sub_resource type="Animation" id="Animation_iehf4"]
+resource_name = "Spew"
+length = 0.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Teeth/Top:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.185108, 1.03563, -0.0866164), Vector3(-0.205334, 1.30846, -0.317802)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Teeth/Top:quaternion")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Quaternion(-0.707107, 0, 0, 0.707107), Quaternion(0.972562, 0.0325686, -0.0325686, -0.228039)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Teeth/Bottom:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.170008, 0.449279, -0.100955), Vector3(-0.182401, 0.163531, -0.242604)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Teeth/Bottom:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0), Vector3(-0.932024, 0.0872663, -0.0872664)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles3D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_g847j"]
+resource_name = "Start_succ"
+length = 0.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Teeth/Top:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.185108, 1.03563, -0.0866164), Vector3(-0.205334, 1.30846, -0.317802)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Teeth/Top:quaternion")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Quaternion(-0.707107, 0, 0, 0.707107), Quaternion(0.972562, 0.0325686, -0.0325686, -0.228039)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Teeth/Bottom:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.170008, 0.449279, -0.100955), Vector3(-0.182401, 0.163531, -0.242604)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Teeth/Bottom:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0), Vector3(-0.932024, 0.0872663, -0.0872664)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Tongue:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.732333), Vector3(0, 0, -1.73602)]
+}
+
+[sub_resource type="Animation" id="Animation_44d6h"]
+resource_name = "StopSpew"
+length = 0.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Teeth/Top:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.205334, 1.30846, -0.317802), Vector3(-0.185108, 1.03563, -0.0866164)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Teeth/Top:quaternion")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Quaternion(0.972562, 0.0325686, -0.0325686, -0.228039), Quaternion(-0.707107, 0, 0, 0.707107)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Teeth/Bottom:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.182401, 0.163531, -0.242604), Vector3(-0.170008, 0.449279, -0.100955)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Teeth/Bottom:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.932024, 0.0872663, -0.0872664), Vector3(-1.5708, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles3D:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+
+[sub_resource type="Animation" id="Animation_a1g1s"]
+resource_name = "Stop_Succ"
+length = 0.25
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Teeth/Top:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.205334, 1.30846, -0.317802), Vector3(-0.185108, 1.03563, -0.0866164)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Teeth/Top:quaternion")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Quaternion(0.972562, 0.0325686, -0.0325686, -0.228039), Quaternion(-0.707107, 0, 0, 0.707107)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Teeth/Bottom:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.182401, 0.163531, -0.242604), Vector3(-0.170008, 0.449279, -0.100955)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Teeth/Bottom:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.932024, 0.0872663, -0.0872664), Vector3(-1.5708, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Tongue:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.73602), Vector3(0, 0, -0.732333)]
+}
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Tongue/Armature/Skeleton3D:Bone.001")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0.25, 1, 6.71794e-08, 2.18557e-08, -9.73536e-08, 1)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Tongue/Armature/Skeleton3D:Bone.002")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0.25, 1, 8.47952e-11, 4.94236e-08, 0.0020576, 0.999998)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Tongue/Armature/Skeleton3D:Bone.003")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0.25, 1, -4.85871e-11, 5.69e-09, 0.00349772, 0.999994)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Tongue/Armature/Skeleton3D:Bone.004")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0.25, 1, 5.52654e-11, -1.09819e-11, -0.00282311, 0.999996)
 
 [sub_resource type="Animation" id="Animation_005kc"]
 resource_name = "succing"
@@ -405,229 +639,6 @@ tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = PackedFloat32Array(0, 1, 5.52654e-11, -1.09819e-11, -0.00282311, 0.999996, 0.1, 1, 4.16238e-08, -2.49135e-08, -0.274115, 0.961697, 0.2, 1, -7.86701e-08, 4.71463e-08, 0.511492, 0.859288, 0.3, 1, 5.52654e-11, -1.09819e-11, -0.00282311, 0.999996)
 
-[sub_resource type="Animation" id="Animation_a1g1s"]
-resource_name = "Stop_Succ"
-length = 0.25
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Teeth/Top:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.205334, 1.30846, -0.317802), Vector3(-0.185108, 1.03563, -0.0866164)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Teeth/Top:quaternion")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Quaternion(0.972562, 0.0325686, -0.0325686, -0.228039), Quaternion(-0.707107, 0, 0, 0.707107)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Teeth/Bottom:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.182401, 0.163531, -0.242604), Vector3(-0.170008, 0.449279, -0.100955)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Teeth/Bottom:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.932024, 0.0872663, -0.0872664), Vector3(-1.5708, 0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Tongue:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, -1.73602), Vector3(0, 0, -0.732333)]
-}
-tracks/5/type = "rotation_3d"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Tongue/Armature/Skeleton3D:Bone.001")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0.25, 1, 6.71794e-08, 2.18557e-08, -9.73536e-08, 1)
-tracks/6/type = "rotation_3d"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Tongue/Armature/Skeleton3D:Bone.002")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = PackedFloat32Array(0.25, 1, 8.47952e-11, 4.94236e-08, 0.0020576, 0.999998)
-tracks/7/type = "rotation_3d"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Tongue/Armature/Skeleton3D:Bone.003")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = PackedFloat32Array(0.25, 1, -4.85871e-11, 5.69e-09, 0.00349772, 0.999994)
-tracks/8/type = "rotation_3d"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Tongue/Armature/Skeleton3D:Bone.004")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = PackedFloat32Array(0.25, 1, 5.52654e-11, -1.09819e-11, -0.00282311, 0.999996)
-
-[sub_resource type="Animation" id="Animation_iehf4"]
-resource_name = "Spew"
-length = 0.25
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Teeth/Top:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.185108, 1.03563, -0.0866164), Vector3(-0.205334, 1.30846, -0.317802)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Teeth/Top:quaternion")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Quaternion(-0.707107, 0, 0, 0.707107), Quaternion(0.972562, 0.0325686, -0.0325686, -0.228039)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Teeth/Bottom:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.170008, 0.449279, -0.100955), Vector3(-0.182401, 0.163531, -0.242604)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Teeth/Bottom:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-1.5708, 0, 0), Vector3(-0.932024, 0.0872663, -0.0872664)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GPUParticles3D:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="Animation" id="Animation_44d6h"]
-resource_name = "StopSpew"
-length = 0.25
-step = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Teeth/Top:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.205334, 1.30846, -0.317802), Vector3(-0.185108, 1.03563, -0.0866164)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Teeth/Top:quaternion")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Quaternion(0.972562, 0.0325686, -0.0325686, -0.228039), Quaternion(-0.707107, 0, 0, 0.707107)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Teeth/Bottom:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.182401, 0.163531, -0.242604), Vector3(-0.170008, 0.449279, -0.100955)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Teeth/Bottom:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.932024, 0.0872663, -0.0872664), Vector3(-1.5708, 0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GPUParticles3D:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ylufk"]
 _data = {
 "RESET": SubResource("Animation_tabei"),
@@ -679,13 +690,13 @@ mesh = SubResource("SphereMesh_33hni")
 transform = Transform3D(-0.348668, 0, 0.0305045, 0, 0.35, 0, -0.0305045, 0, -0.348668, -0.0621066, -0.236881, -1.07931)
 
 [node name="Top" type="MeshInstance3D" parent="Teeth" index="0"]
-transform = Transform3D(0.000245844, 0, 0, 0, -2.93068e-11, 0.000245844, 0, -0.000245844, -2.93068e-11, -0.185108, 1.03563, -0.0866164)
+transform = Transform3D(0.000245844, 0, 0, 0, 0, 0.000245844, 0, -0.000245844, 0, -0.185108, 1.03563, -0.0866164)
 rotation_edit_mode = 1
 mesh = SubResource("ArrayMesh_c71s8")
 skeleton = NodePath("")
 
 [node name="Bottom" type="MeshInstance3D" parent="Teeth" index="1"]
-transform = Transform3D(0.000245844, 0, 0, 0, -1.07462e-11, 0.000245844, 0, -0.000245844, -1.07462e-11, -0.170008, 0.449279, -0.100955)
+transform = Transform3D(0.000245844, 0, 0, 0, -8.89953e-10, 0.000245844, 0, -0.000245844, -8.89953e-10, -0.170008, 0.449279, -0.100955)
 mesh = SubResource("ArrayMesh_3mif2")
 skeleton = NodePath("")
 
@@ -736,6 +747,7 @@ bones/4/scale = Vector3(1, 1, 1)
 [node name="Tongue" type="MeshInstance3D" parent="Tongue/Armature/Skeleton3D" index="0"]
 mesh = SubResource("ArrayMesh_d5lby")
 skin = SubResource("Skin_vci47")
+surface_material_override/0 = SubResource("ShaderMaterial_aymo4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 libraries = {

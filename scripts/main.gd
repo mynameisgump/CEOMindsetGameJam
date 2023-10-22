@@ -66,8 +66,6 @@ func _process(delta):
 			meat_spawn_timer.wait_time = new_time;
 			meat_spawn_timer.start();
 
-
-
 func _on_character_body_3d_shoot_meat_sphere(new_position, impulse):
 	var meat_sphere = MeatSphere.instantiate();
 	meat.add_child(meat_sphere);
@@ -75,14 +73,10 @@ func _on_character_body_3d_shoot_meat_sphere(new_position, impulse):
 	meat_sphere.set_position(new_position);
 	meat_sphere.apply_impulse(impulse*impulse_strength);
 
-
 func _on_hud_upgrade(upgrade_name):
 	money -= 100;
 	if upgrade_name == "meat_dissolve":
 		current_dissolve_time += 1;
-	pass # Replace with function body.
-
 
 func _on_vat_full():
 	vat_full = true
-	pass # Replace with function body.

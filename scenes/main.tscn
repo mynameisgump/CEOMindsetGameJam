@@ -221,5 +221,6 @@ stream = ExtResource("15_fajl3")
 [connection signal="full" from="Map/meat_grinder/GrindingArea/Vat" to="Map/meat_grinder/GrindingArea" method="_on_vat_full"]
 [connection signal="death" from="CharacterBody3D" to="Map/meat_grinder/GrindingArea" method="_on_character_body_3d_death"]
 [connection signal="shoot_meat_sphere" from="CharacterBody3D" to="." method="_on_character_body_3d_shoot_meat_sphere"]
+[connection signal="open_hud" from="HUD" to="CharacterBody3D" method="_on_hud_open_hud"]
 [connection signal="upgrade" from="HUD" to="." method="_on_hud_upgrade"]
 [connection signal="upgrade" from="HUD" to="CharacterBody3D" method="_on_hud_upgrade"]

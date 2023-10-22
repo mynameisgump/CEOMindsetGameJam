@@ -71,7 +71,9 @@ var spewing = false;
 var is_sucking = false;
 
 signal death;
+signal menu_opened(value);
 var dead = false;
+var hud_opened = false;
 
 func kill():
 	dead = true;
@@ -116,7 +118,6 @@ func handle_input(delta : float) -> void:
 		is_sucking = true;
 
 	if (Input.is_action_just_released("suck") or total_meat_spheres >= vac_max) and is_sucking:
-		print("Stoping Suc")
 		sound_vacum_succ.stop();
 		succ_particles.emitting = false;
 		sucking.emit(false);
@@ -162,7 +163,8 @@ func handle_movement(delta : float) -> void:
 
 
 func _physics_process(delta):
-	if not dead:
+	if not dead and not hud_opened:
+		
 		handle_movement(delta)
 		handle_input(delta)
 
@@ -194,3 +196,9 @@ func _on_vacum_tip_body_entered(body):
 func _on_hud_upgrade(upgrade_name):
 	if upgrade_name=="max_meat":
 		vac_max += 5;
+
+func _on_hud_open_hud(value):
+	print("Opened hud", value)
+	hud_opened = value;
+	menu_opened.emit(value);
+	pass # Replace with function body.

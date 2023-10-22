@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://80dp3vtex6i1"
-path="res://.godot/imported/Bruh.mp3-03b8b961ae4272e7a16fefbac9067bf4.mp3str"
+path="res://.godot/imported/bruh.mp3-d7c85014a26692817d5e5ce9efbe7ff0.mp3str"
 
 [deps]
 
-source_file="res://audio/Bruh.mp3"
-dest_files=["res://.godot/imported/Bruh.mp3-03b8b961ae4272e7a16fefbac9067bf4.mp3str"]
+source_file="res://audio/bruh.mp3"
+dest_files=["res://.godot/imported/bruh.mp3-d7c85014a26692817d5e5ce9efbe7ff0.mp3str"]
 
 [params]
 
